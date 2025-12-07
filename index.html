@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מרכז הפעילויות - רישום לקורסים וטיולים</title>
+    
+    <!-- טעינת ספריות חיצוניות (React, Tailwind) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- הגדרות עיצוב בסיסיות -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
+        body { font-family: 'Assistant', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- אייקונים (SVG) ---
+        // הגדרת האייקונים ידנית כדי למנוע תלות בספריות חיצוניות מורכבות
+        const Icons = {
+            MapPin: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
+            Lock: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
+            LogOut: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>,
+            Menu: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
+            DollarSign: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
+            Clock: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+            Calendar: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>,
+            ExternalLink: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>,
+            ImageIcon: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>,
+            Plus: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>,
+            Edit: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>,
+            Trash2: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>,
+            Check: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+            X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
+            Download: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
+            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        };
+
+        // --- Mock Data ---
+        const INITIAL_COURSES = [
+          {
+            id: 1,
+            title: "יוגה לגיל השלישי",
+            description: "קורס רגוע ומחזק המתמקד בנשימה, יציבה וגמישות. מתאים לכל הרמות.",
+            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500",
+            price: "350 ₪ לחודש",
+            schedule: "ימי שני ורביעי, 09:00-10:15",
+            link: "https://forms.google.com/your-form-link",
+            active: true
+          },
+          {
+            id: 2,
+            title: "סדנת כתיבה יוצרת",
+            description: "להעלות זיכרונות על הכתב, ללמוד טכניקות סיפור ולשתף בקבוצה תומכת.",
+            image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500",
+            price: "1200 ₪ לקורס מלא",
+            schedule: "ימי שלישי, 18:00-19:30",
+            link: "https://forms.google.com/your-form-link",
+            active: true
+          }
+        ];
+
+        const INITIAL_TRIPS = [
+          {
+            id: 1,
+            title: "פריחת הכלניות בצפון",
+            description: "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
+            price: "180 ₪ למשתתף",
+            date: "15.02.2024, יציאה ב-08:00",
+            link: "https://forms.google.com/your-form-link",
+            active: true
+          }
+        ];
+
+        // --- Components ---
+        const Navbar = ({ onViewChange, isAdminMode, setIsAdminMode }) => (
+          <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+            <div className="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+              <div 
+                className="text-2xl font-bold text-teal-800 cursor-pointer flex items-center gap-2"
+                onClick={() => onViewChange('home')}
+              >
+                <div className="w-6 h-6 text-teal-800"><Icons.MapPin /></div>
+                <span>מרכז הפעילויות</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                {isAdminMode ? (
+                  <div className="flex items-center gap-2">
+                     <button 
+                      onClick={() => onViewChange('admin')}
+                      className="text-gray-600 hover:text-teal-700 font-medium px-3 py-1 rounded transition-colors hidden md:block"
+                    >
+                      ניהול ראשי
+                    </button>
+                    <button 
+                      onClick={() => setIsAdminMode(false)}
+                      className="bg-red-100 text-red-700 px-3 py-1 rounded-md flex items-center gap-2 text-sm hover:bg-red-200 transition"
+                    >
+                      <div className="w-4 h-4"><Icons.LogOut /></div> <span className="hidden md:inline">יציאה</span>
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => onViewChange('login')}
+                    className="text-gray-400 hover:text-gray-600 transition"
+                    title="כניסת מנהל"
+                  >
+                    <div className="w-5 h-5"><Icons.Lock /></div>
+                  </button>
+                )}
+              </div>
+            </div>
+          </nav>
+        );
+
+        const Card = ({ item, type }) => {
+          if (!item.active) return null;
+
+          return (
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full group">
+              <div className="h-48 overflow-hidden relative bg-gray-100">
+                {item.image ? (
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <div className="w-12 h-12"><Icons.ImageIcon /></div>
+                  </div>
+                )}
+                <div className="absolute top-0 right-0 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-sm">
+                  {type === 'course' ? 'קורס' : 'טיול'}
+                </div>
+              </div>
+              
+              <div className="p-5 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+                  {item.description}
+                </p>
+                
+                <div className="space-y-2 mb-6 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 text-teal-600"><Icons.DollarSign /></div>
+                    <span className="font-semibold">{item.price}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 text-teal-600">{type === 'course' ? <Icons.Clock /> : <Icons.Calendar />}</div>
+                    <span>{type === 'course' ? item.schedule : item.date}</span>
+                  </div>
+                </div>
+
+                <a 
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 rounded-lg transition-all active:scale-95 flex items-center justify-center gap-2 no-underline"
+                >
+                  <span>הרשמה (גוגל פורמס)</span>
+                  <div className="w-4 h-4"><Icons.ExternalLink /></div>
+                </a>
+              </div>
+            </div>
+          );
+        };
+
+        const PublicView = ({ courses, trips }) => (
+          <div className="max-w-6xl mx-auto px-4 py-12">
+            <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <h1 className="text-4xl font-bold text-gray-800 mb-4">קורסים וטיולים</h1>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                ברוכים הבאים למערכת הרישום. בחרו את הפעילות הרצויה והירשמו בקלות באמצעות הטופס המקוון.
+              </p>
+            </div>
+
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 border-r-4 border-teal-500 pr-3 flex items-center gap-2">
+                <div className="w-6 h-6 text-teal-500"><Icons.Menu /></div> קורסים קרובים
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {courses.filter(c => c.active).length > 0 ? (
+                  courses.map(course => (
+                    <Card key={course.id} item={course} type="course" />
+                  ))
+                ) : (
+                  <p className="text-gray-500 col-span-3 text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                    אין קורסים פעילים כרגע.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 border-r-4 border-orange-500 pr-3 flex items-center gap-2">
+                <div className="w-6 h-6 text-orange-500"><Icons.MapPin /></div> טיולים
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {trips.filter(t => t.active).length > 0 ? (
+                  trips.map(trip => (
+                    <Card key={trip.id} item={trip} type="trip" />
+                  ))
+                ) : (
+                  <p className="text-gray-500 col-span-3 text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                    אין טיולים פעילים כרגע.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+
+        const AdminLogin = ({ onLogin }) => {
+          const [pin, setPin] = React.useState('');
+          const [error, setError] = React.useState(false);
+
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            if (pin === '1234') {
+              onLogin();
+            } else {
+              setError(true);
+            }
+          };
+
+          return (
+            <div className="min-h-[60vh] flex items-center justify-center">
+              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-100">
+                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">כניסת מנהל מערכת</h2>
+                <div className="mb-6">
+                  <label className="block text-gray-700 mb-2">קוד גישה (נסה 1234)</label>
+                  <input 
+                    type="password" 
+                    value={pin}
+                    onChange={(e) => setPin(e.target.value)}
+                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-center text-xl tracking-widest"
+                    autoFocus
+                  />
+                  {error && <p className="text-red-500 text-sm mt-2">קוד שגוי</p>}
+                </div>
+                <button className="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700 transition">
+                  כניסה
+                </button>
+              </form>
+            </div>
+          );
+        };
+
+        const AdminDashboard = ({ onChangeView, onExportData }) => (
+          <div className="max-w-4xl mx-auto px-4 py-12">
+            <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">ממשק ניהול ראשי</h1>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <button 
+                onClick={() => onChangeView('admin-courses')}
+                className="bg-white p-8 rounded-xl shadow-md border-2 border-transparent hover:border-teal-500 transition-all group text-right"
+              >
+                <div className="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 text-teal-600"><Icons.Menu /></div>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">ניהול קורסים</h2>
+                <p className="text-gray-500">הוספה, עריכה ומחיקה של קורסים, עדכון מחירים ושעות.</p>
+              </button>
+
+              <button 
+                onClick={() => onChangeView('admin-trips')}
+                className="bg-white p-8 rounded-xl shadow-md border-2 border-transparent hover:border-orange-500 transition-all group text-right"
+              >
+                <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 text-orange-600"><Icons.MapPin /></div>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">ניהול טיולים</h2>
+                <p className="text-gray-500">ניהול רשימת הטיולים, תאריכי יציאה וקישורי הרשמה.</p>
+              </button>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-6 h-6 text-blue-600 shrink-0 mt-1"><Icons.AlertCircle /></div>
+                <div>
+                  <h3 className="font-bold text-blue-800 mb-2">שמירת שינויים לאתר הציבורי</h3>
+                  <p className="text-blue-700 text-sm mb-4">
+                    מכיוון שהאתר פועל ללא שרת חיצוני, שינויים שתעשה כאן נשמרים רק אצלך כרגע. 
+                    כדי לעדכן את האתר שכולם רואים, יש לייצא את הנתונים ולעדכן את קובץ הקוד לפני העלאה מחדש.
+                  </p>
+                  <button 
+                    onClick={onExportData}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 flex items-center gap-2"
+                  >
+                    <div className="w-4 h-4"><Icons.Download /></div> העתק נתונים לעדכון הקוד
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+        const ItemEditor = ({ items, type, onSave, onDelete, onBack }) => {
+          const [editingId, setEditingId] = React.useState(null);
+          const [formData, setFormData] = React.useState({});
+
+          const isCourse = type === 'course';
+          const label = isCourse ? 'קורס' : 'טיול';
+
+          const startEdit = (item) => {
+            setEditingId(item ? item.id : 'new');
+            setFormData(item || { 
+              active: true, 
+              title: '', 
+              description: '', 
+              price: '', 
+              schedule: '', 
+              date: '', 
+              image: '',
+              link: ''
+            });
+          };
+
+          const handleSave = (e) => {
+            e.preventDefault();
+            onSave({ ...formData, id: editingId === 'new' ? Date.now() : editingId });
+            setEditingId(null);
+          };
+
+          if (editingId) {
+            return (
+              <div className="max-w-2xl mx-auto px-4 py-8 animate-in slide-in-from-right duration-300">
+                <div className="flex items-center justify-between mb-6">
+                   <h2 className="text-2xl font-bold">{editingId === 'new' ? `הוספת ${label} חדש` : `עריכת ${label}`}</h2>
+                   <button onClick={() => setEditingId(null)} className="text-gray-500 hover:text-gray-700">ביטול וחזרה</button>
+                </div>
+                
+                <form onSubmit={handleSave} className="bg-white p-6 rounded-xl shadow-md border border-gray-200 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">שם ה{label}</label>
+                    <input 
+                      required
+                      type="text" 
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                      value={formData.title}
+                      onChange={e => setFormData({...formData, title: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">קישור לטופס הרשמה (Google Forms)</label>
+                    <input 
+                      required
+                      type="url" 
+                      placeholder="https://forms.google.com/..."
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 dir-ltr text-left"
+                      value={formData.link || ''}
+                      onChange={e => setFormData({...formData, link: e.target.value})}
+                    />
+                    <p className="text-xs text-gray-500 mt-1">הדבק כאן את הקישור שקיבלת מגוגל פורמס עבור {label} זה</p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">תמונת (URL)</label>
+                    <input 
+                      type="url" 
+                      placeholder="https://..."
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 dir-ltr text-left"
+                      value={formData.image || ''}
+                      onChange={e => setFormData({...formData, image: e.target.value})}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">תיאור קצר</label>
+                    <textarea 
+                      required
+                      rows="3"
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                      value={formData.description}
+                      onChange={e => setFormData({...formData, description: e.target.value})}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">מחיר</label>
+                      <input 
+                        required
+                        type="text" 
+                        className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                        value={formData.price}
+                        onChange={e => setFormData({...formData, price: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        {isCourse ? 'ימים ושעות' : 'תאריך ושעת יציאה'}
+                      </label>
+                      <input 
+                        required
+                        type="text" 
+                        className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                        value={isCourse ? formData.schedule : formData.date}
+                        onChange={e => setFormData(isCourse ? {...formData, schedule: e.target.value} : {...formData, date: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-4 bg-gray-50 p-3 rounded">
+                    <input 
+                      type="checkbox" 
+                      id="active"
+                      className="w-5 h-5 text-teal-600 rounded"
+                      checked={formData.active}
+                      onChange={e => setFormData({...formData, active: e.target.checked})}
+                    />
+                    <label htmlFor="active" className="font-medium text-gray-700">סטטוס פעיל (מוצג באתר)</label>
+                  </div>
+
+                  <div className="flex gap-3 mt-6 pt-4 border-t">
+                    <button type="submit" className="flex-1 bg-teal-600 text-white py-2 rounded hover:bg-teal-700 font-medium">
+                      שמירה
+                    </button>
+                    <button type="button" onClick={() => setEditingId(null)} className="flex-1 bg-gray-200 text-gray-800 py-2 rounded hover:bg-gray-300">
+                      ביטול
+                    </button>
+                  </div>
+                </form>
+              </div>
+            );
+          }
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <button onClick={onBack} className="text-gray-500 hover:text-gray-800 mb-2 text-sm flex items-center gap-1">
+                    → חזרה לתפריט ראשי
+                  </button>
+                  <h2 className="text-3xl font-bold text-gray-800">ניהול {isCourse ? 'קורסים' : 'טיולים'}</h2>
+                </div>
+                <button 
+                  onClick={() => startEdit(null)}
+                  className="bg-teal-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-teal-700 transition shadow-sm"
+                >
+                  <div className="w-5 h-5"><Icons.Plus /></div>
+                  הוסף {label}
+                </button>
+              </div>
+
+              <div className="bg-white rounded-xl shadow overflow-hidden border border-gray-200">
+                <table className="w-full text-right">
+                  <thead className="bg-gray-50 text-gray-600 border-b">
+                    <tr>
+                      <th className="p-4 font-medium w-20">תמונה</th>
+                      <th className="p-4 font-medium">שם</th>
+                      <th className="p-4 font-medium">פרטים</th>
+                      <th className="p-4 font-medium">סטטוס</th>
+                      <th className="p-4 font-medium text-center w-32">פעולות</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {items.map(item => (
+                      <tr key={item.id} className="hover:bg-gray-50 transition">
+                        <td className="p-4">
+                          <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden">
+                            {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
+                          </div>
+                        </td>
+                        <td className="p-4 font-medium text-gray-800">{item.title}</td>
+                        <td className="p-4 text-sm text-gray-600">
+                          <div>{item.price}</div>
+                          <div>{isCourse ? item.schedule : item.date}</div>
+                        </td>
+                        <td className="p-4">
+                          {item.active ? (
+                            <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold flex items-center gap-1 w-fit">
+                              <div className="w-3 h-3"><Icons.Check /></div> פעיל
+                            </span>
+                          ) : (
+                            <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold flex items-center gap-1 w-fit">
+                              <div className="w-3 h-3"><Icons.X /></div> מוסתר
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button 
+                              onClick={() => startEdit(item)}
+                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition" 
+                              title="ערוך"
+                            >
+                              <div className="w-4 h-4"><Icons.Edit /></div>
+                            </button>
+                            <button 
+                              onClick={() => onDelete(item.id)}
+                              className="p-2 text-red-600 hover:bg-red-50 rounded-full transition"
+                              title="מחק"
+                            >
+                              <div className="w-4 h-4"><Icons.Trash2 /></div>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {items.length === 0 && (
+                      <tr>
+                        <td colSpan="5" className="p-8 text-center text-gray-500">
+                          עדיין לא נוספו {isCourse ? 'קורסים' : 'טיולים'}. לחץ על הכפתור למעלה כדי להתחיל.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        };
+
+        const App = () => {
+          const [courses, setCourses] = React.useState(() => {
+            const saved = localStorage.getItem('mySite_courses');
+            return saved ? JSON.parse(saved) : INITIAL_COURSES;
+          });
+
+          const [trips, setTrips] = React.useState(() => {
+            const saved = localStorage.getItem('mySite_trips');
+            return saved ? JSON.parse(saved) : INITIAL_TRIPS;
+          });
+
+          const [view, setView] = React.useState('home'); 
+          const [isAdminMode, setIsAdminMode] = React.useState(false);
+
+          React.useEffect(() => {
+            localStorage.setItem('mySite_courses', JSON.stringify(courses));
+          }, [courses]);
+
+          React.useEffect(() => {
+            localStorage.setItem('mySite_trips', JSON.stringify(trips));
+          }, [trips]);
+
+          const handleSaveCourse = (course) => {
+            const exists = courses.find(c => c.id === course.id);
+            if (exists) {
+              setCourses(courses.map(c => c.id === course.id ? course : c));
+            } else {
+              setCourses([...courses, course]);
+            }
+          };
+
+          const handleDeleteCourse = (id) => {
+            if (window.confirm('האם אתה בטוח שברצונך למחוק קורס זה?')) {
+              setCourses(courses.filter(c => c.id !== id));
+            }
+          };
+
+          const handleSaveTrip = (trip) => {
+            const exists = trips.find(t => t.id === trip.id);
+            if (exists) {
+              setTrips(trips.map(t => t.id === trip.id ? trip : t));
+            } else {
+              setTrips([...trips, trip]);
+            }
+          };
+
+          const handleDeleteTrip = (id) => {
+            if (window.confirm('האם אתה בטוח שברצונך למחוק טיול זה?')) {
+              setTrips(trips.filter(t => t.id !== id));
+            }
+          };
+
+          const handleAdminLogin = () => {
+            setIsAdminMode(true);
+            setView('admin');
+          };
+
+          const handleExportData = () => {
+            const data = {
+              courses: courses,
+              trips: trips
+            };
+            const dataStr = JSON.stringify(data, null, 2);
+            navigator.clipboard.writeText(dataStr).then(() => {
+              alert('הנתונים הועתקו ללוח! שלח את הטקסט הזה למתכנת לעדכון האתר.');
+            });
+          };
+
+          return (
+            <div className="min-h-screen bg-gray-50 text-gray-900 font-sans" dir="rtl">
+              <Navbar 
+                onViewChange={setView} 
+                isAdminMode={isAdminMode} 
+                setIsAdminMode={(val) => {
+                  setIsAdminMode(val);
+                  setView('home');
+                }}
+              />
+
+              <main>
+                {view === 'home' && (
+                  <PublicView 
+                    courses={courses} 
+                    trips={trips} 
+                  />
+                )}
+                
+                {view === 'login' && <AdminLogin onLogin={handleAdminLogin} />}
+                
+                {view === 'admin' && isAdminMode && (
+                  <AdminDashboard onChangeView={setView} onExportData={handleExportData} />
+                )}
+                
+                {view === 'admin-courses' && isAdminMode && (
+                  <ItemEditor 
+                    type="course" 
+                    items={courses} 
+                    onSave={handleSaveCourse} 
+                    onDelete={handleDeleteCourse} 
+                    onBack={() => setView('admin')}
+                  />
+                )}
+                
+                {view === 'admin-trips' && isAdminMode && (
+                  <ItemEditor 
+                    type="trip" 
+                    items={trips} 
+                    onSave={handleSaveTrip} 
+                    onDelete={handleDeleteTrip} 
+                    onBack={() => setView('admin')}
+                  />
+                )}
+              </main>
+
+              <footer className="bg-gray-800 text-gray-400 py-8 text-center mt-12">
+                <p>© כל הזכויות שמורות - מערכת רישום ומידע</p>
+              </footer>
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
