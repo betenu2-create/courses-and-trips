@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מרכז הפעילויות - רישום לקורסים וטיולים</title>
+    <title>קורסים וטיולים - עמותת המייסדים</title>
     
     <!-- טעינת ספריות חיצוניות (React, Tailwind) -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -29,66 +29,41 @@
            2. הדבק אותם במקום הנתונים הקיימים למטה.
         */
 
-      /* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
-/* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
+        const INITIAL_COURSES = [
+          {
+            id: 1,
+            title: "יוגה לגיל השלישי",
+            description: "קורס רגוע ומחזק המתמקד בנשימה, יציבה וגמישות. מתאים לכל הרמות.",
+            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500",
+            price: "350 ₪ לחודש",
+            schedule: "ימי שני ורביעי, 09:00-10:15",
+            link: "https://forms.google.com/example-1",
+            active: true
+          },
+          {
+            id: 2,
+            title: "סדנת כתיבה יוצרת",
+            description: "להעלות זיכרונות על הכתב, ללמוד טכניקות סיפור ולשתף בקבוצה תומכת.",
+            image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500",
+            price: "1200 ₪ לקורס מלא",
+            schedule: "ימי שלישי, 18:00-19:30",
+            link: "https://forms.google.com/example-2",
+            active: true
+          }
+        ];
 
-const INITIAL_COURSES = [
-  {
-    "id": 1,
-    "title": "יוגה לגיל השלישי",
-    "description": "קורס רגוע ומחזק המתמקד בנשימה, יציבה וגמישות. מתאים לכל הרמות.",
-    "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500",
-    "price": "350 ₪ לחודש",
-    "schedule": "ימי שני ורביעי, 09:00-10:15",
-    "link": "https://forms.google.com/example-1",
-    "active": true
-  },
-  {
-    "id": 2,
-    "title": "סדנת כתיבה יוצרת",
-    "description": "להעלות זיכרונות על הכתב, ללמוד טכניקות סיפור ולשתף בקבוצה תומכת.",
-    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500",
-    "price": "1200 ₪ לקורס מלא",
-    "schedule": "ימי שלישי, 18:00-19:30",
-    "link": "https://forms.google.com/example-2",
-    "active": true
-  },
-  {
-    "active": true,
-    "title": "ניסיון ",
-    "description": "בלה בלב",
-    "price": "250",
-    "schedule": "א 12:00",
-    "date": "",
-    "image": "",
-    "link": "https://lovable.dev/",
-    "id": 1765136794246
-  },
-  {
-    "active": true,
-    "title": "נסיון נוסף",
-    "description": "בלה בלה",
-    "price": "20",
-    "schedule": "ב 12:00",
-    "date": "",
-    "image": "",
-    "link": "https://lovable.dev/",
-    "id": 1765136820701
-  }
-];
-
-const INITIAL_TRIPS = [
-  {
-    "id": 1,
-    "title": "פריחת הכלניות בצפון",
-    "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
-    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
-    "price": "180 ₪ למשתתף",
-    "date": "15.02.2024, יציאה ב-08:00",
-    "link": "https://forms.google.com/example-trip-1",
-    "active": true
-  }
-];
+        const INITIAL_TRIPS = [
+          {
+            id: 1,
+            title: "פריחת הכלניות בצפון",
+            description: "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
+            price: "180 ₪ למשתתף",
+            date: "15.02.2024, יציאה ב-08:00",
+            link: "https://forms.google.com/example-trip-1",
+            active: true
+          }
+        ];
 
         // ================================================================
         // סוף אזור הנתונים - מכאן והלאה זה הקוד של המערכת (לא לגעת אם לא חייבים)
@@ -111,7 +86,8 @@ const INITIAL_TRIPS = [
             Check: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
             X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
             Download: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
-            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>,
+            Quote: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
         };
 
         // --- Components ---
@@ -207,10 +183,33 @@ const INITIAL_TRIPS = [
 
         const PublicView = ({ courses, trips }) => (
           <div className="max-w-6xl mx-auto px-4 py-12">
-            <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <h1 className="text-4xl font-bold text-gray-800 mb-4">קורסים וטיולים</h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                ברוכים הבאים למערכת הרישום. בחרו את הפעילות הרצויה והירשמו בקלות באמצעות הטופס המקוון.
+            
+            {/* Header / Hero Section */}
+            <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">קורסים וטיולים - סימסטר שני</h1>
+              <h2 className="text-xl font-semibold text-teal-700 mb-8">ברוכים הבאים לפתיחת הסימסטר השני של עמותת המייסדים, קתדרת "ביתנו"</h2>
+              
+              <div className="max-w-3xl mx-auto space-y-4 text-lg text-gray-600 leading-relaxed">
+                <p>
+                  לנוחותכם ריכזנו בעמוד הזה את הקורסים החדשים שייפתחו בקרוב ואת הטיולים שיתקיימו בארץ ובחו"ל בחודשים הקרובים (מוצגים כאן רק טיולים הכוללים לינה).
+                </p>
+                <p className="font-medium text-teal-900">
+                  בואו להרחיב אופקים, לפגוש אנשים חדשים, ליצור חברויות ולצאת לחוויות משותפות עם חברים מהעמק.
+                </p>
+              </div>
+
+              {/* Quote Section */}
+              <div className="max-w-3xl mx-auto mt-10 mb-8 bg-teal-50 border-r-4 border-teal-500 p-6 rounded-l-xl text-right shadow-sm relative overflow-hidden">
+                 <div className="absolute top-2 left-2 opacity-10 text-teal-800 pointer-events-none">
+                    <div className="w-16 h-16"><Icons.Quote /></div>
+                 </div>
+                 <p className="italic text-gray-700 text-lg relative z-10 font-medium">
+                   "מחקרים רבים מראים כי פעילות קבועה, למידה מתמשכת וחיי קהילה פעילים תורמים לבריאות טובה ולאריכות ימים. ארגון הבריאות העולמי ממליץ לשלב תנועה, התנסות וחיבור חברתי כחלק משגרת היומיום."
+                 </p>
+              </div>
+
+              <p className="text-gray-500 text-sm mt-6 font-medium bg-white inline-block px-4 py-1 rounded-full border shadow-sm">
+                בחרו את הפעילות שמדברת אליכם והירשמו בקלות דרך הטופס המקוון
               </p>
             </div>
 
@@ -617,7 +616,6 @@ const INITIAL_TRIPS = [
               INITIAL_TRIPS: trips
             };
             
-            // עיצוב הנתונים כקוד מוכן להדבקה
             const codeToCopy = `/* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
 
 const INITIAL_COURSES = ${JSON.stringify(courses, null, 2)};
