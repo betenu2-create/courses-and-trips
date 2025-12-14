@@ -22,11 +22,8 @@
 
     <script type="text/babel">
         /* ================================================================
-           אזור הנתונים ההתחלתיים - כאן מעדכנים את האתר באופן קבוע
+           אזור הנתונים ההתחלתיים
            ================================================================
-           הוראות לעדכון:
-           1. העתק את הנתונים החדשים מכפתור "יצוא נתונים" במערכת הניהול.
-           2. הדבק אותם במקום הנתונים הקיימים למטה.
         */
 
         const INITIAL_COURSES = [
@@ -61,13 +58,10 @@
             price: "180 ₪ למשתתף",
             date: "15.02.2024, יציאה ב-08:00",
             link: "https://forms.google.com/example-trip-1",
+            month: "פברואר", // דוגמה לשימוש בחודש
             active: true
           }
         ];
-
-        // ================================================================
-        // סוף אזור הנתונים - מכאן והלאה זה הקוד של המערכת (לא לגעת אם לא חייבים)
-        // ================================================================
 
         // --- אייקונים (SVG) ---
         const Icons = {
@@ -135,6 +129,23 @@
         const Card = ({ item, type }) => {
           if (!item.active) return null;
 
+          // לוגיקה לקביעת הטקסט והצבע של התגית
+          const getBadgeData = () => {
+            if (type === 'course') {
+              return { text: 'קורס', colorClass: 'bg-teal-600' };
+            }
+            // אם זה טיול - בדוק אם יש חודש מוגדר
+            if (type === 'trip') {
+               return { 
+                 text: item.month || 'טיול', // הצג את החודש או את המילה "טיול" כברירת מחדל
+                 colorClass: 'bg-orange-600' // צבע כתום בולט לטיולים
+               };
+            }
+            return { text: '', colorClass: 'bg-gray-600' };
+          };
+
+          const badge = getBadgeData();
+
           return (
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full group">
               <div className="h-48 overflow-hidden relative bg-gray-100">
@@ -145,8 +156,8 @@
                     <div className="w-12 h-12"><Icons.ImageIcon /></div>
                   </div>
                 )}
-                <div className="absolute top-0 right-0 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-sm">
-                  {type === 'course' ? 'קורס' : 'טיול'}
+                <div className={`absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-sm ${badge.colorClass}`}>
+                  {badge.text}
                 </div>
               </div>
               
@@ -231,6 +242,18 @@
             </div>
 
             <div>
+              {/* Trips Intro Section - Updated Text and Centered */}
+              <div className="mb-10 bg-orange-50 rounded-xl p-8 border-r-4 border-orange-500 text-center">
+                <h2 className="text-2xl font-bold text-gray-800 mb-3">יוצאים לדרך - טיולים בארץ ובחו"ל</h2>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  לפניכם נבחרת הטיולים שלנו לחודשים הקרובים.
+                  <br/>
+                  רגע לפני הרישום, אנו ממליצים לעבור בנחת על הפרטים: שימו לב למגוון היעדים, בדקו את התאריכים המדויקים והתייחסו למחירים (היכן שמופיעים).
+                  <br/>
+                  כך תוכלו לבחור את החוויה המדויקת והמתאימה ביותר, ולהירשם רק למה שרלוונטי עבורכם
+                </p>
+              </div>
+
               <h2 className="text-2xl font-bold text-gray-800 mb-6 border-r-4 border-orange-500 pr-3 flex items-center gap-2">
                 <div className="w-6 h-6 text-orange-500"><Icons.MapPin /></div> טיולים
               </h2>
@@ -255,7 +278,6 @@
 
           const handleSubmit = (e) => {
             e.preventDefault();
-            // כאן שינינו את הסיסמה לפי בקשתך
             if (pin === '6667522') {
               onLogin();
             } else {
@@ -352,7 +374,8 @@
               schedule: '', 
               date: '', 
               image: '',
-              link: ''
+              link: '',
+              month: '' // אתחול שדה החודש
             });
           };
 
@@ -381,6 +404,21 @@
                       onChange={e => setFormData({...formData, title: e.target.value})}
                     />
                   </div>
+
+                  {/* שדה חדש לציון חודש - מופיע רק בטיולים */}
+                  {!isCourse && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">חודש הטיול (לתגית על התמונה)</label>
+                      <input 
+                        type="text" 
+                        placeholder="לדוגמה: אפריל"
+                        className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                        value={formData.month || ''}
+                        onChange={e => setFormData({...formData, month: e.target.value})}
+                      />
+                      <p className="text-xs text-gray-500 mt-1">טקסט זה יופיע על התמונה במקום המילה "טיול". השאר ריק אם ברצונך להציג "טיול".</p>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">קישור לטופס הרשמה (Google Forms)</label>
