@@ -22,79 +22,56 @@
 
     <script type="text/babel">
         /* ================================================================
-           ▼▼▼▼▼▼▼▼▼▼   תחילת אזור הדבקה - סמן ומחק מכאן   ▼▼▼▼▼▼▼▼▼▼
-           ================================================================
-           הוראות למחר:
-           1. כשאתה מקבל את הקוד מהמחשב השני, העתק אותו.
-           2. בוא לפה, סמן את כל מה שנמצא בין החצים היורדים (כאן)
-              ועד החצים העולים (למטה).
-           3. מחק את מה שסימנת והדבק את הקוד החדש.
-        */
-
-      /* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
-
-const INITIAL_COURSES = [
-  {
-    "id": 1,
-    "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
-    "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת",
-    "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
-    "price": "280 ₪ לסמסטר אחד",
-    "schedule": "ימי שלישי 8:45-10:00",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSfG7jvr6ukUNFOSLoT8r720NB4soN3E_j2BkTqvXVAj2ak35A/viewform?usp=header",
-    "active": true
-  },
-  {
-    "id": 2,
-    "title": "משבר האקלים  - מה צופן לנו העתיד?",
-    "description": "אקלים/חשמל/מים/מזון – מה קרה ומה יקרה?\nיש פתרונות ויש תקווה",
-    "image": "https://i.postimg.cc/tJDqfML3/30-Beautiful-Artworks-That-Act-Against-Climate-Change.jpg",
-    "price": "280 ₪ לסמסטר אחד",
-    "schedule": "ימי שלישי 8:45-10:00",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
-    "active": true
-  },
-  {
-    "active": true,
-    "title": "המטבח הבריא",
-    "description": "להחליף את הקישור, אחרי שהמודעה תעודכן. כנ\"ל לגבח התמונה בפורם",
-    "price": "280 ש\"ח לסמסטר אחד",
-    "schedule": "ימי שני 8:45-10:00",
-    "date": "",
-    "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
-    "id": 1765463548185
-  },
-  {
-    "active": true,
-    "title": "גיאולוגיה  ",
-    "description": "להחליף את הקישור מהפורם, אחרי שמוטי ישלח את הנושאים",
-    "price": "280 ש\"ח לסמסטר אחד",
-    "schedule": "ימי שלישי 10:30-11:45",
-    "date": "",
-    "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
-    "id": 1765463832870
-  }
-];
-
-const INITIAL_TRIPS = [
-  {
-    "id": 1,
-    "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
-    "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
-    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
-    "price": "180 ₪ למשתתף",
-    "date": "15.02.2024, יציאה ב-08:00",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=publish-editor",
-    "active": true
-  }
-];
-
-        /* ================================================================
-           ▲▲▲▲▲▲▲▲▲▲   סוף אזור הדבקה - אל תמחק מתחת לקו זה   ▲▲▲▲▲▲▲▲▲▲
+           אזור הנתונים ההתחלתיים והגדרות גרסה
            ================================================================
         */
+
+        // חשוב מאוד! בכל פעם שאתה מעדכן נתונים בקוד ומעלה לגיטהאב,
+        // שנה את המספר הזה (למשל מ-1 ל-2).
+        // פעולה זו תגרום לכל המשתמשים לקבל את המידע החדש באופן מיידי.
+        const SITE_VERSION = 1; 
+
+        // כאן מדביקים את הנתונים מכפתור היצוא
+        const INITIAL_COURSES = [
+          {
+            id: 1,
+            title: "יוגה לגיל השלישי",
+            description: "קורס רגוע ומחזק המתמקד בנשימה, יציבה וגמישות. מתאים לכל הרמות.",
+            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500",
+            price: "350 ₪ לחודש",
+            schedule: "ימי שני ורביעי, 09:00-10:15",
+            link: "https://forms.google.com/example-1",
+            active: true
+          },
+          {
+            id: 2,
+            title: "סדנת כתיבה יוצרת",
+            description: "להעלות זיכרונות על הכתב, ללמוד טכניקות סיפור ולשתף בקבוצה תומכת.",
+            image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500",
+            price: "1200 ₪ לקורס מלא",
+            schedule: "ימי שלישי, 18:00-19:30",
+            link: "https://forms.google.com/example-2",
+            active: true
+          }
+        ];
+
+        const INITIAL_TRIPS = [
+          {
+            id: 1,
+            title: "פריחת הכלניות בצפון",
+            description: "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
+            price: "180 ₪ למשתתף",
+            date: "15.02.2024, יציאה ב-08:00",
+            link: "https://forms.google.com/example-trip-1",
+            month: "פברואר",
+            active: true
+          }
+        ];
+
+        // ================================================================
+        // סוף אזור הנתונים
+        // ================================================================
 
         // --- אייקונים (SVG) ---
         const Icons = {
@@ -162,16 +139,14 @@ const INITIAL_TRIPS = [
         const Card = ({ item, type }) => {
           if (!item.active) return null;
 
-          // לוגיקה לקביעת הטקסט והצבע של התגית
           const getBadgeData = () => {
             if (type === 'course') {
               return { text: 'קורס', colorClass: 'bg-teal-600' };
             }
-            // אם זה טיול - בדוק אם יש חודש מוגדר
             if (type === 'trip') {
                return { 
-                 text: item.month || 'טיול', // הצג את החודש או את המילה "טיול" כברירת מחדל
-                 colorClass: 'bg-orange-600' // צבע כתום בולט לטיולים
+                 text: item.month || 'טיול', 
+                 colorClass: 'bg-orange-600'
                };
             }
             return { text: '', colorClass: 'bg-gray-600' };
@@ -248,7 +223,7 @@ const INITIAL_TRIPS = [
                     <div className="w-16 h-16"><Icons.Quote /></div>
                  </div>
                  <p className="italic text-gray-700 text-lg relative z-10 font-medium">
-                   "מחקרים רבים מראים כי פעילות קבועה, למידה מתמשכת וחיי קהילה פעילים תורמים לבריאות טובה ולאריכות ימים. ארגון הבריאות העולמי ממליץ לשלב תנועה, התנסות בפעילויות חדשות וחיבור חברתי כחלק משגרת היומיום."
+                   "מחקרים רבים מראים כי פעילות קבועה, למידה מתמשכת וחיי קהילה פעילים תורמים לבריאות טובה ולאריכות ימים. ארגון הבריאות העולמי ממליץ לשלב תנועה, התנסות וחיבור חברתי כחלק משגרת היומיום."
                  </p>
               </div>
 
@@ -275,7 +250,7 @@ const INITIAL_TRIPS = [
             </div>
 
             <div>
-              {/* Trips Intro Section - Updated Text and Centered */}
+              {/* Trips Intro Section */}
               <div className="mb-10 bg-orange-50 rounded-xl p-8 border-r-4 border-orange-500 text-center">
                 <h2 className="text-2xl font-bold text-gray-800 mb-3">יוצאים לדרך - טיולים בארץ ובחו"ל</h2>
                 <p className="text-gray-700 text-lg leading-relaxed">
@@ -408,7 +383,7 @@ const INITIAL_TRIPS = [
               date: '', 
               image: '',
               link: '',
-              month: '' // אתחול שדה החודש
+              month: ''
             });
           };
 
@@ -438,7 +413,6 @@ const INITIAL_TRIPS = [
                     />
                   </div>
 
-                  {/* שדה חדש לציון חודש - מופיע רק בטיולים */}
                   {!isCourse && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">חודש הטיול (לתגית על התמונה)</label>
@@ -638,6 +612,19 @@ const INITIAL_TRIPS = [
           const [view, setView] = React.useState('home'); 
           const [isAdminMode, setIsAdminMode] = React.useState(false);
 
+          // לוגיקת עדכון גרסה - הפתרון לבעיית הקאש
+          React.useEffect(() => {
+            const currentVersion = localStorage.getItem('site_version');
+            if (currentVersion != SITE_VERSION) {
+                // אם הגרסה שונה, מחק את המידע הישן וטען מחדש מהקוד
+                localStorage.removeItem('mySite_courses');
+                localStorage.removeItem('mySite_trips');
+                localStorage.setItem('site_version', SITE_VERSION);
+                setCourses(INITIAL_COURSES);
+                setTrips(INITIAL_TRIPS);
+            }
+          }, []);
+
           React.useEffect(() => {
             localStorage.setItem('mySite_courses', JSON.stringify(courses));
           }, [courses]);
@@ -687,14 +674,21 @@ const INITIAL_TRIPS = [
               INITIAL_TRIPS: trips
             };
             
-            const codeToCopy = `/* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
+            // עיצוב הקוד להעתקה - כולל הנחיה לשנות גרסה
+            const codeToCopy = `/* הדבק את הקוד הזה בראש הקובץ */
+
+// *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל ${SITE_VERSION + 1}) ***
+const SITE_VERSION = ${SITE_VERSION + 1}; 
 
 const INITIAL_COURSES = ${JSON.stringify(courses, null, 2)};
 
 const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
 
             navigator.clipboard.writeText(codeToCopy).then(() => {
-              alert('הנתונים הועתקו! עכשיו כנס לגיטהאב, ערוך את הקובץ והדבק את הקוד הזה במקום הקוד שבראש הדף.');
+              alert(`הנתונים הועתקו!
+חשוב מאוד:
+בקוד שהועתק כבר קידמנו לך את הגרסה ל-${SITE_VERSION + 1}.
+פשוט תדביק את זה בגיטהאב וזה יעדכן את כולם אוטומטית.`);
             });
           };
 
@@ -755,18 +749,4 @@ const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
         root.render(<App />);
     </script>
 </body>
-</html>```אני שמח שהצלחת! זה הישג לא מבוטל למי שזה חדש לו.
-
-כדי להוריד את מפלס הלחץ למחר, עשיתי משהו שיעזור לך מאוד: **סימנתי את "אזור ההדבקה" בתוך הקוד בצורה שלא משתמעת לשתי פנים.**
-
-הוספתי הערות ענקיות עם חצים (`▼▼▼` ו-`▲▲▲`) שאומרות לך בדיוק איפה להתחיל למחוק ואיפה לעצור. ככה לא תמחק בטעות סוגריים או פסיקים ששייכים לקוד של האתר עצמו.
-
-הנה הקובץ המעודכן עם סימני הדרך הבטוחים. תעתיק אותו עכשיו לגיטהאב, ומחר כשתבוא להדביק את הנתונים החדשים, זה יהיה הרבה יותר קל:
-
-1.  **מחר (או כשתרצה לעדכן):** תעתיק את הנתונים מהניהול.
-2.  תפתח את הקובץ בגיטהאב.
-3.  תחפש את החצים הגדולים שהוספתי למטה.
-4.  תסמן ותמחק **רק** את מה שביניהם.
-5.  תדביק את החדש.
-
-הנה הקוד החדש (שים לב להערות הגדולות בהתחלה):
+</html>
