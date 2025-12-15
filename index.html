@@ -29,46 +29,68 @@
         // חשוב מאוד! בכל פעם שאתה מעדכן נתונים בקוד ומעלה לגיטהאב,
         // שנה את המספר הזה (למשל מ-1 ל-2).
         // פעולה זו תגרום לכל המשתמשים לקבל את המידע החדש באופן מיידי.
-        const SITE_VERSION = 1; 
+        const SITE_VERSION = 2; 
 
         // כאן מדביקים את הנתונים מכפתור היצוא
-        const INITIAL_COURSES = [
-          {
-            id: 1,
-            title: "יוגה לגיל השלישי",
-            description: "קורס רגוע ומחזק המתמקד בנשימה, יציבה וגמישות. מתאים לכל הרמות.",
-            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=500",
-            price: "350 ₪ לחודש",
-            schedule: "ימי שני ורביעי, 09:00-10:15",
-            link: "https://forms.google.com/example-1",
-            active: true
-          },
-          {
-            id: 2,
-            title: "סדנת כתיבה יוצרת",
-            description: "להעלות זיכרונות על הכתב, ללמוד טכניקות סיפור ולשתף בקבוצה תומכת.",
-            image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500",
-            price: "1200 ₪ לקורס מלא",
-            schedule: "ימי שלישי, 18:00-19:30",
-            link: "https://forms.google.com/example-2",
-            active: true
-          }
-        ];
+     /* הדבק את הקוד הזה בראש הקובץ במקום הנתונים הקודמים */
 
-        const INITIAL_TRIPS = [
-          {
-            id: 1,
-            title: "פריחת הכלניות בצפון",
-            description: "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
-            image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
-            price: "180 ₪ למשתתף",
-            date: "15.02.2024, יציאה ב-08:00",
-            link: "https://forms.google.com/example-trip-1",
-            month: "פברואר",
-            active: true
-          }
-        ];
+const INITIAL_COURSES = [
+  {
+    "id": 1,
+    "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
+    "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת",
+    "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
+    "price": "280 ₪ לסמסטר אחד",
+    "schedule": "ימי שלישי 8:45-10:00",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSfG7jvr6ukUNFOSLoT8r720NB4soN3E_j2BkTqvXVAj2ak35A/viewform?usp=header",
+    "active": true
+  },
+  {
+    "id": 2,
+    "title": "משבר האקלים  - מה צופן לנו העתיד?",
+    "description": "אקלים/חשמל/מים/מזון – מה קרה ומה יקרה?\nיש פתרונות ויש תקווה",
+    "image": "https://i.postimg.cc/tJDqfML3/30-Beautiful-Artworks-That-Act-Against-Climate-Change.jpg",
+    "price": "280 ₪ לסמסטר אחד",
+    "schedule": "ימי שלישי 8:45-10:00",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
+    "active": true
+  },
+  {
+    "active": true,
+    "title": "המטבח הבריא",
+    "description": "להחליף את הקישור, אחרי שהמודעה תעודכן. כנ\"ל לגבח התמונה בפורם",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "ימי שני 8:45-10:00",
+    "date": "",
+    "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
+    "id": 1765463548185
+  },
+  {
+    "active": true,
+    "title": "גיאולוגיה  ",
+    "description": "להחליף את הקישור מהפורם, אחרי שמוטי ישלח את הנושאים",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "ימי שלישי 10:30-11:45",
+    "date": "",
+    "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
+    "id": 1765463832870
+  }
+];
 
+const INITIAL_TRIPS = [
+  {
+    "id": 1,
+    "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
+    "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500",
+    "price": "180 ₪ למשתתף",
+    "date": "15.02.2024, יציאה ב-08:00",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=publish-editor",
+    "active": true
+  }
+];
         // ================================================================
         // סוף אזור הנתונים
         // ================================================================
