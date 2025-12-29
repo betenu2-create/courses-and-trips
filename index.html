@@ -21,6 +21,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
         body { font-family: 'Assistant', sans-serif; }
+        /* שיפור נגישות - פונט בסיס קצת יותר גדול */
+        html { font-size: 17px; } 
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -28,167 +30,168 @@
 
     <script type="text/babel">
         /* ================================================================
-           אזור הנתונים ההתחלתיים והגדרות גרסה
+           אזור הנתונים והגדרות גרסה
            ================================================================
-     /* הדבק את הקוד הזה בראש הקובץ */
+        */
 
-// *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 5) ***
-const SITE_VERSION = 5; 
+        // עדכון גרסה ל-6 לפי בקשתך
+        const SITE_VERSION = 6; 
 
-const INITIAL_COURSES = [
-  {
-    "id": 1,
-    "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
-    "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת.\nיש שני מועדים:\nיום שלישי - 08:45-10:00\nיום שלישי - 10:30-11:45",
-    "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
-    "price": "50 ₪ לסמסטר אחד",
-    "schedule": "ימי שלישי",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSfG7jvr6ukUNFOSLoT8r720NB4soN3E_j2BkTqvXVAj2ak35A/viewform?usp=header",
-    "active": true
-  },
-  {
-    "id": 2,
-    "title": "משבר האקלים - מה צופן לנו העתיד?",
-    "description": "אקלים/חשמל/מים/מזון - מה קרה ומה יקרה?\nיש פתרונות ויש תקווה",
-    "image": "https://i.postimg.cc/prP656Qv/Ecology-Earth-Environment-Photo.jpg",
-    "price": "280 ₪ לסמסטר אחד",
-    "schedule": "ימי שלישי 8:45-10:00",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
-    "active": true
-  },
-  {
-    "active": true,
-    "title": "המטבח הבריא",
-    "description": "להחליף את הקישור, אחרי שהמודעה תעודכן. כנ\"ל לגבי התמונה בפורם",
-    "price": "280 ש\"ח לסמסטר אחד",
-    "schedule": "ימי שני 8:45-10:00",
-    "date": "",
-    "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
-    "id": 1765463548185
-  },
-  {
-    "active": true,
-    "title": "גיאולוגיה",
-    "description": "להחליף את הקישור מהפורם, אחרי שמוטי ישלח את הנושאים",
-    "price": "280 ש\"ח לסמסטר אחד",
-    "schedule": "ימי שלישי 10:30-11:45",
-    "date": "",
-    "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
-    "id": 1765463832870
-  },
-  {
-    "active": true,
-    "title": "מעגל החיים ביהדות",
-    "description": "לתאר את הקורס",
-    "price": "280",
-    "schedule": "יום חמישי 10:30-11:45",
-    "date": "",
-    "image": "https://i.postimg.cc/k5hjWKkK/prswm-lhwg-m'gl-hhyym.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=publish-editor",
-    "month": "",
-    "id": 1766330499853
-  },
-  {
-    "active": true,
-    "title": "מפגשים עם שמוליק הראלי",
-    "description": "סדרה של 4 מפגשים",
-    "price": "ללא עלות",
-    "schedule": "שלישי",
-    "date": "",
-    "image": "https://i.postimg.cc/280jq2sS/'mq-hyrdn1.png",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=header",
-    "month": "",
-    "id": 1766926582897
-  }
-];
+        const INITIAL_COURSES = [
+          {
+            "id": 1,
+            "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
+            "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת.\nיש שני מועדים:\nיום שלישי - 08:45-10:00\nיום שלישי - 10:30-11:45",
+            "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
+            "price": "50 ₪ לסמסטר אחד",
+            "schedule": "ימי שלישי",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSfG7jvr6ukUNFOSLoT8r720NB4soN3E_j2BkTqvXVAj2ak35A/viewform?usp=header",
+            "active": true
+          },
+          {
+            "id": 2,
+            "title": "משבר האקלים - מה צופן לנו העתיד?",
+            "description": "אקלים/חשמל/מים/מזון - מה קרה ומה יקרה?\nיש פתרונות ויש תקווה",
+            "image": "https://i.postimg.cc/prP656Qv/Ecology-Earth-Environment-Photo.jpg",
+            "price": "280 ₪ לסמסטר אחד",
+            "schedule": "ימי שלישי 8:45-10:00",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
+            "active": true
+          },
+          {
+            "active": true,
+            "title": "המטבח הבריא",
+            "description": "להחליף את הקישור, אחרי שהמודעה תעודכן. כנ\"ל לגבי התמונה בפורם",
+            "price": "280 ש\"ח לסמסטר אחד",
+            "schedule": "ימי שני 8:45-10:00",
+            "date": "",
+            "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
+            "id": 1765463548185
+          },
+          {
+            "active": true,
+            "title": "גיאולוגיה",
+            "description": "להחליף את הקישור מהפורם, אחרי שמוטי ישלח את הנושאים",
+            "price": "280 ש\"ח לסמסטר אחד",
+            "schedule": "ימי שלישי 10:30-11:45",
+            "date": "",
+            "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
+            "id": 1765463832870
+          },
+          {
+            "active": true,
+            "title": "מעגל החיים ביהדות",
+            "description": "לתאר את הקורס",
+            "price": "280",
+            "schedule": "יום חמישי 10:30-11:45",
+            "date": "",
+            "image": "https://i.postimg.cc/k5hjWKkK/prswm-lhwg-m'gl-hhyym.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=publish-editor",
+            "month": "",
+            "id": 1766330499853
+          },
+          {
+            "active": true,
+            "title": "מפגשים עם שמוליק הראלי",
+            "description": "סדרה של 4 מפגשים",
+            "price": "ללא עלות",
+            "schedule": "שלישי",
+            "date": "",
+            "image": "https://i.postimg.cc/280jq2sS/'mq-hyrdn1.png",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=header",
+            "month": "",
+            "id": 1766926582897
+          }
+        ];
 
-const INITIAL_TRIPS = [
-  {
-    "id": 1,
-    "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
-    "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
-    "image": "https://i.postimg.cc/VL43ZrtS/mzph-'lwmwt-lprswm-sl-'dm.jpg",
-    "price": "משתנה לפי הטיול",
-    "date": "משתנה לפי הטיול",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=header",
-    "active": true,
-    "month": "סדרת טיולים שנתית"
-  },
-  {
-    "active": true,
-    "title": "הגושרים - גליל עליון",
-    "description": "המתעניינים בטיול לגליל עליון, מוזמנים להרשם בקובץ המצורף ואנחנו ניצור אתכם קשר בהמשך",
-    "price": "0",
-    "schedule": "",
-    "date": "26/4/26",
-    "image": "https://i.postimg.cc/jdW5Rbhd/hgwsrym.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeMiWFW7lMyxOSKQn2wEgvj1aQofxCo75wBS20d4z9nyh9Rjg/viewform?usp=publish-editor",
-    "month": "אפריל",
-    "id": 1766329262694
-  },
-  {
-    "active": true,
-    "title": "קהילה צועדת עם חדוה הדר",
-    "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת",
-    "price": "משתנה לפי הטיול",
-    "schedule": "",
-    "date": "משתנה לפי הטיול",
-    "image": "https://i.postimg.cc/0QBzC2fy/lprswm-sl-hdwh.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdjlzF5kQWKbxNfCmi_-IDQ1ANb_xaj5wgnKWZ-MaDNO8y9BA/viewform?usp=publish-editor",
-    "month": "סדרת טיולים שנתית",
-    "id": 1766329851381
-  },
-  {
-    "active": true,
-    "title": "סיורי אומנות עם ירדנה עציון",
-    "description": "סדרת סיורים בגלריות ובמוזיאונים בארץ\n",
-    "price": "משתנה לפי הסיור",
-    "schedule": "",
-    "date": "משתנה לפי הסיור",
-    "image": "https://i.postimg.cc/VsKxD0n9/lprswm-sl-yrdnh.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeo7x6oLqO79sazHU-VU4bbi1hkqvu2BlmueF0-dd6L1NmITg/viewform?usp=publish-editor",
-    "month": "סדרת סיורים שנתית",
-    "id": 1766330247200
-  },
-  {
-    "active": true,
-    "title": "טיול לירושלים 7-9/7/2026",
-    "description": "פרטים על הטיול ינתנו בהמשך",
-    "price": "ינתן בהמשך",
-    "schedule": "",
-    "date": "7/7/26",
-    "image": "https://i.postimg.cc/6qz4GLmz/lprswm-lyrwslym.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLScoyzy0QrX6Jae8JE21oB7Bai2t4DB3qDRaJ3Drtela4eTHUQ/viewform?usp=publish-editor",
-    "month": "יולי",
-    "id": 1766330724698
-  },
-  {
-    "active": true,
-    "title": "ונציה עם ירדנה עציון",
-    "description": "פרטים ינתנו בהמשך",
-    "price": "בהמשך",
-    "schedule": "",
-    "date": "אוקטובר",
-    "image": "https://i.postimg.cc/FRr9J55B/wnzyh-lprswm-htywl.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSehzUCp4xJYR0DutsPu6HpMaikqGZI1POqvgOAT5hpCKEHTxA/viewform?usp=publish-editor",
-    "month": "אוקטובר",
-    "id": 1766330917984
-  },
-  {
-    "active": true,
-    "title": "צפון איטליה",
-    "description": "למתעניינים",
-    "price": "בפרסום",
-    "schedule": "",
-    "date": "בפרסום",
-    "image": "https://i.postimg.cc/vTj9bbLf/wrwnh.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeQi04TQ-bvlMoRLUXjczzARjep49yYx0CwecyPXDTTWX5cBg/viewform?usp=publish-editor",
-    "month": "מאי",
-    "id": 1766671609147
-  }
-];
+        const INITIAL_TRIPS = [
+          {
+            "id": 1,
+            "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
+            "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+            "image": "https://i.postimg.cc/VL43ZrtS/mzph-'lwmwt-lprswm-sl-'dm.jpg",
+            "price": "משתנה לפי הטיול",
+            "date": "משתנה לפי הטיול",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=header",
+            "active": true,
+            "month": "סדרת טיולים שנתית"
+          },
+          {
+            "active": true,
+            "title": "הגושרים - גליל עליון",
+            "description": "המתעניינים בטיול לגליל עליון, מוזמנים להרשם בקובץ המצורף ואנחנו ניצור אתכם קשר בהמשך",
+            "price": "0",
+            "schedule": "",
+            "date": "26/4/26",
+            "image": "https://i.postimg.cc/jdW5Rbhd/hgwsrym.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeMiWFW7lMyxOSKQn2wEgvj1aQofxCo75wBS20d4z9nyh9Rjg/viewform?usp=publish-editor",
+            "month": "אפריל",
+            "id": 1766329262694
+          },
+          {
+            "active": true,
+            "title": "קהילה צועדת עם חדוה הדר",
+            "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת",
+            "price": "משתנה לפי הטיול",
+            "schedule": "",
+            "date": "משתנה לפי הטיול",
+            "image": "https://i.postimg.cc/0QBzC2fy/lprswm-sl-hdwh.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSdjlzF5kQWKbxNfCmi_-IDQ1ANb_xaj5wgnKWZ-MaDNO8y9BA/viewform?usp=publish-editor",
+            "month": "סדרת טיולים שנתית",
+            "id": 1766329851381
+          },
+          {
+            "active": true,
+            "title": "סיורי אומנות עם ירדנה עציון",
+            "description": "סדרת סיורים בגלריות ובמוזיאונים בארץ\n",
+            "price": "משתנה לפי הסיור",
+            "schedule": "",
+            "date": "משתנה לפי הסיור",
+            "image": "https://i.postimg.cc/VsKxD0n9/lprswm-sl-yrdnh.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeo7x6oLqO79sazHU-VU4bbi1hkqvu2BlmueF0-dd6L1NmITg/viewform?usp=publish-editor",
+            "month": "סדרת סיורים שנתית",
+            "id": 1766330247200
+          },
+          {
+            "active": true,
+            "title": "טיול לירושלים 7-9/7/2026",
+            "description": "פרטים על הטיול ינתנו בהמשך",
+            "price": "ינתן בהמשך",
+            "schedule": "",
+            "date": "7/7/26",
+            "image": "https://i.postimg.cc/6qz4GLmz/lprswm-lyrwslym.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLScoyzy0QrX6Jae8JE21oB7Bai2t4DB3qDRaJ3Drtela4eTHUQ/viewform?usp=publish-editor",
+            "month": "יולי",
+            "id": 1766330724698
+          },
+          {
+            "active": true,
+            "title": "ונציה עם ירדנה עציון",
+            "description": "פרטים ינתנו בהמשך",
+            "price": "בהמשך",
+            "schedule": "",
+            "date": "אוקטובר",
+            "image": "https://i.postimg.cc/FRr9J55B/wnzyh-lprswm-htywl.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSehzUCp4xJYR0DutsPu6HpMaikqGZI1POqvgOAT5hpCKEHTxA/viewform?usp=publish-editor",
+            "month": "אוקטובר",
+            "id": 1766330917984
+          },
+          {
+            "active": true,
+            "title": "צפון איטליה",
+            "description": "למתעניינים",
+            "price": "בפרסום",
+            "schedule": "",
+            "date": "בפרסום",
+            "image": "https://i.postimg.cc/vTj9bbLf/wrwnh.jpg",
+            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeQi04TQ-bvlMoRLUXjczzARjep49yYx0CwecyPXDTTWX5cBg/viewform?usp=publish-editor",
+            "month": "מאי",
+            "id": 1766671609147
+          }
+        ];
+
         // ================================================================
         // סוף אזור הנתונים
         // ================================================================
@@ -284,24 +287,24 @@ const INITIAL_TRIPS = [
                     <div className="w-12 h-12"><Icons.ImageIcon /></div>
                   </div>
                 )}
-                <div className={`absolute top-0 right-0 text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-sm ${badge.colorClass}`}>
+                <div className={`absolute top-0 right-0 text-white text-base font-bold px-3 py-1 rounded-bl-lg shadow-sm ${badge.colorClass}`}>
                   {badge.text}
                 </div>
               </div>
               
               <div className="p-5 flex-grow flex flex-col">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                <p className="text-gray-700 text-base leading-relaxed mb-4 flex-grow whitespace-pre-line">
                   {item.description}
                 </p>
                 
-                <div className="space-y-2 mb-6 text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                <div className="space-y-2 mb-6 text-base text-gray-800 bg-gray-50 p-3 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 text-teal-600"><Icons.Tag /></div>
+                    <div className="w-5 h-5 text-teal-600"><Icons.Tag /></div>
                     <span className="font-semibold">{item.price}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 text-teal-600">{type === 'course' ? <Icons.Clock /> : <Icons.Calendar />}</div>
+                    <div className="w-5 h-5 text-teal-600">{type === 'course' ? <Icons.Clock /> : <Icons.Calendar />}</div>
                     <span>{type === 'course' ? item.schedule : item.date}</span>
                   </div>
                 </div>
@@ -310,10 +313,10 @@ const INITIAL_TRIPS = [
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 rounded-lg transition-all active:scale-95 flex items-center justify-center gap-2 no-underline"
+                  className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold text-lg py-3 rounded-lg transition-all active:scale-95 flex items-center justify-center gap-2 no-underline"
                 >
-                  <span>הרשמה (גוגל פורמס)</span>
-                  <div className="w-4 h-4"><Icons.ExternalLink /></div>
+                  <span>לפרטים נוספים והרשמה</span>
+                  <div className="w-5 h-5"><Icons.ExternalLink /></div>
                 </a>
               </div>
             </div>
@@ -326,9 +329,9 @@ const INITIAL_TRIPS = [
             {/* Header / Hero Section */}
             <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">קורסים וטיולים - סימסטר שני</h1>
-              <h2 className="text-xl font-semibold text-teal-700 mb-8">ברוכים הבאים לפתיחת הסימסטר השני של עמותת המייסדים, קתדרת "ביתנו"</h2>
+              <h2 className="text-xl md:text-2xl font-semibold text-teal-700 mb-8">ברוכים הבאים לפתיחת הסימסטר השני של עמותת המייסדים, קתדרת "ביתנו"</h2>
               
-              <div className="max-w-3xl mx-auto space-y-4 text-lg text-gray-600 leading-relaxed">
+              <div className="max-w-3xl mx-auto space-y-4 text-xl text-gray-700 leading-relaxed">
                 <p>
                   לנוחותכם ריכזנו בעמוד הזה את הקורסים החדשים שייפתחו בקרוב ואת הטיולים שיתקיימו בארץ ובחו"ל בחודשים הקרובים (מוצגים כאן רק טיולים הכוללים לינה).
                 </p>
@@ -342,19 +345,19 @@ const INITIAL_TRIPS = [
                  <div className="absolute top-2 left-2 opacity-10 text-teal-800 pointer-events-none">
                     <div className="w-16 h-16"><Icons.Quote /></div>
                  </div>
-                 <p className="italic text-gray-700 text-lg relative z-10 font-medium">
+                 <p className="italic text-gray-800 text-lg md:text-xl relative z-10 font-medium">
                    "מחקרים רבים מראים כי פעילות קבועה, למידה מתמשכת וחיי קהילה פעילים תורמים לבריאות טובה ולאריכות ימים. ארגון הבריאות העולמי ממליץ לשלב תנועה, התנסות וחיבור חברתי כחלק משגרת היומיום."
                  </p>
               </div>
 
-              <p className="text-gray-500 text-sm mt-6 font-medium bg-white inline-block px-4 py-1 rounded-full border shadow-sm">
+              <p className="text-gray-600 text-base md:text-lg mt-6 font-medium bg-white inline-block px-4 py-2 rounded-full border shadow-sm">
                 בחרו את הפעילות שמדברת אליכם והירשמו בקלות דרך הטופס המקוון
               </p>
             </div>
 
             <div className="mb-16">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 border-r-4 border-teal-500 pr-3 flex items-center gap-2">
-                <div className="w-6 h-6 text-teal-500"><Icons.Menu /></div> קורסים קרובים
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 border-r-4 border-teal-500 pr-3 flex items-center gap-2">
+                <div className="w-8 h-8 text-teal-500"><Icons.Menu /></div> קורסים קרובים
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {courses.filter(c => c.active).length > 0 ? (
@@ -370,10 +373,10 @@ const INITIAL_TRIPS = [
             </div>
 
             <div>
-              {/* Trips Intro Section - Updated Text and Centered */}
+              {/* Trips Intro Section */}
               <div className="mb-10 bg-orange-50 rounded-xl p-8 border-r-4 border-orange-500 text-center">
-                <h2 className="text-2xl font-bold text-gray-800 mb-3">יוצאים לדרך - טיולים בארץ ובחו"ל</h2>
-                <p className="text-gray-700 text-lg leading-relaxed">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">יוצאים לדרך - טיולים בארץ ובחו"ל</h2>
+                <p className="text-gray-800 text-lg md:text-xl leading-relaxed">
                   לפניכם נבחרת הטיולים שלנו לחודשים הקרובים.
                   <br/>
                   רגע לפני הרישום, אנו ממליצים לעבור בנחת על הפרטים: שימו לב למגוון היעדים, בדקו את התאריכים המדויקים והתייחסו למחירים (היכן שמופיעים).
@@ -382,8 +385,8 @@ const INITIAL_TRIPS = [
                 </p>
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 border-r-4 border-orange-500 pr-3 flex items-center gap-2">
-                <div className="w-6 h-6 text-orange-500"><Icons.MapPin /></div> טיולים
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 border-r-4 border-orange-500 pr-3 flex items-center gap-2">
+                <div className="w-8 h-8 text-orange-500"><Icons.MapPin /></div> טיולים
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {trips.filter(t => t.active).length > 0 ? (
@@ -548,7 +551,7 @@ const INITIAL_TRIPS = [
                   )}
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">קישור לטופס הרשמה (Google Forms)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">קישור לטופס הרשמה</label>
                     <input 
                       required
                       type="url" 
@@ -557,7 +560,7 @@ const INITIAL_TRIPS = [
                       value={formData.link || ''}
                       onChange={e => setFormData({...formData, link: e.target.value})}
                     />
-                    <p className="text-xs text-gray-500 mt-1">הדבק כאן את הקישור שקיבלת מגוגל פורמס עבור {label} זה</p>
+                    <p className="text-xs text-gray-500 mt-1">הדבק כאן את הקישור שקיבלת עבור {label} זה</p>
                   </div>
 
                   <div>
@@ -724,9 +727,26 @@ const INITIAL_TRIPS = [
             return saved ? JSON.parse(saved) : INITIAL_COURSES;
           });
 
+          // לוגיקת מיון טיולים - מבוצעת פעם אחת בטעינה הראשונית וגם בעדכון גרסה
+          const sortTrips = (tripsToSort) => {
+            const monthOrder = {
+                'ינואר': 1, 'פברואר': 2, 'מרץ': 3, 'אפריל': 4, 'מאי': 5, 'יוני': 6,
+                'יולי': 7, 'אוגוסט': 8, 'ספטמבר': 9, 'אוקטובר': 10, 'נובמבר': 11, 'דצמבר': 12,
+                'סדרת טיולים שנתית': 100, // שנתית תמיד בסוף
+                'סדרת סיורים שנתית': 100
+            };
+
+            return [...tripsToSort].sort((a, b) => {
+                const monthA = a.month ? (monthOrder[a.month] || 99) : 99; // אם אין חודש, שם בסוף
+                const monthB = b.month ? (monthOrder[b.month] || 99) : 99;
+                return monthA - monthB;
+            });
+          };
+
           const [trips, setTrips] = React.useState(() => {
             const saved = localStorage.getItem('mySite_trips');
-            return saved ? JSON.parse(saved) : INITIAL_TRIPS;
+            // אם יש שמירה, נשתמש בה (אבל כבר ממויין בגלל הלוגיקה למטה). אם לא - המקורי
+            return saved ? JSON.parse(saved) : sortTrips(INITIAL_TRIPS);
           });
 
           const [view, setView] = React.useState('home'); 
@@ -741,7 +761,8 @@ const INITIAL_TRIPS = [
                 localStorage.removeItem('mySite_trips');
                 localStorage.setItem('site_version', SITE_VERSION);
                 setCourses(INITIAL_COURSES);
-                setTrips(INITIAL_TRIPS);
+                // כאן אנחנו ממיינים את הטיולים מחדש כשהגרסה מתעדכנת
+                setTrips(sortTrips(INITIAL_TRIPS));
             }
           }, []);
 
@@ -769,12 +790,16 @@ const INITIAL_TRIPS = [
           };
 
           const handleSaveTrip = (trip) => {
+            // בשמירה חדשה, נוסיף לרשימה ואז נמיין שוב כדי לשמור על הסדר
+            let newTrips;
             const exists = trips.find(t => t.id === trip.id);
             if (exists) {
-              setTrips(trips.map(t => t.id === trip.id ? trip : t));
+              newTrips = trips.map(t => t.id === trip.id ? trip : t);
             } else {
-              setTrips([...trips, trip]);
+              newTrips = [...trips, trip];
             }
+            // מיון אוטומטי מחדש אחרי כל שמירה
+            setTrips(sortTrips(newTrips));
           };
 
           const handleDeleteTrip = (id) => {
