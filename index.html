@@ -31,10 +31,10 @@
         /* ================================================================
            אזור הנתונים והגדרות גרסה
            ================================================================
-      /* הדבק את הקוד הזה בראש הקובץ */
+/* הדבק את הקוד הזה בראש הקובץ */
 
-// *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 9) ***
-const SITE_VERSION = 9; 
+// *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 10) ***
+const SITE_VERSION = 10; 
 
 const INITIAL_COURSES = [
   {
@@ -60,7 +60,7 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "המטבח הבריא",
-    "description": "להחליף את הקישור, אחרי שהמודעה תעודכן. כנ\"ל לגבי התמונה בפורם",
+    "description": "איך אוכלים נכון, בגיל שלנו?\nהרצאות על תזונה, גוף ובריאות, עם דגש על יישום יומיומי ושאלות אמיתיות מהחיים.\nידע עדכני, ברור ורלוונטי למצב הבריאותי של כל אחד.\n\nהקורס מותאם למתחילים וגם למי שכבר למד עם דינה בסמסטר הראשון",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "ימי שני 8:45-10:00",
     "date": "",
@@ -71,7 +71,7 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "גיאולוגיה",
-    "description": "להחליף את הקישור מהפורם, אחרי שמוטי ישלח את הנושאים",
+    "description": "מה קורה מתחת לרגליים שלנו?\nקורס מרתק על תהליכים גיאולוגיים, מים, קרקע ונופים, שמסביר איך נוצר העולם שאנחנו חיים בו.\n\nהקורס מותאם לתלמידים חדשים וגם לממשיכים שכבר למדו גיאולוגיה בסמסטר הראשון.",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "ימי שלישי 10:30-11:45",
     "date": "",
@@ -82,19 +82,19 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "מעגל החיים ביהדות",
-    "description": "לתאר את הקורס",
+    "description": "מסע מרתק בין תחנות החיים, דרך התרבות העברית והיהודית.\nקורס שמזמין התבוננות, שאלות והבנה עמוקה של האדם והקהילה.",
     "price": "280",
     "schedule": "יום חמישי 10:30-11:45",
     "date": "",
     "image": "https://i.postimg.cc/k5hjWKkK/prswm-lhwg-m'gl-hhyym.jpg",
-    "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=publish-editor",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSefaRcBnhml79I9KaDe4tEZoEsI3HkaDkjH-FArjeaT3sOPIg/viewform?usp=dialog",
     "month": "",
     "id": 1766330499853
   },
   {
     "active": true,
     "title": "מפגשים עם שמוליק הראלי",
-    "description": "סדרה של 4 מפגשים",
+    "description": "סדרה קצרה, של 4 מפגשים על הרעיון הקיבוצי והקמתו בעמק הירדן.\nמבט אזורי ומעמיק על תהליכים ששינו ועדיין משנים את פני המקום.",
     "price": "ללא עלות",
     "schedule": "שלישי 10:30-11:45",
     "date": "",
@@ -121,7 +121,7 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "אילת",
-    "description": "מקומות אחרונים לאילת",
+    "description": "נותרו שני חדרים אחרונים, למי לשמור אותם?\nלחצו על הכפתור למטה לפרטים נוספים על הטיול.",
     "price": "2,250 בחדר זוגי",
     "schedule": "",
     "date": "15-18/2",
@@ -133,10 +133,10 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "הגושרים - גליל עליון",
-    "description": "המתעניינים בטיול לגליל עליון, מוזמנים להרשם בקובץ המצורף ואנחנו ניצור אתכם קשר בהמשך",
-    "price": "0",
+    "description": "מתוכנן טיול אביבי לגליל המערבי והגליל העליון, לינה בקיבוץ הגושרים. פרטים יפורסמו בהמשך. ",
+    "price": "יפורסם בהמשך",
     "schedule": "",
-    "date": "26/4/26",
+    "date": "26-28/04/2026",
     "image": "https://i.postimg.cc/jdW5Rbhd/hgwsrym.jpg",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLSeMiWFW7lMyxOSKQn2wEgvj1aQofxCo75wBS20d4z9nyh9Rjg/viewform?usp=publish-editor",
     "month": "אפריל",
@@ -145,10 +145,10 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "צפון איטליה",
-    "description": "למתעניינים",
+    "description": "הטיול שכל כך חיכיתם לו, טיול עומק מאורגן לדולומיטים וצפון איטליה, בשילוב נופים דרמטיים, ערים היסטוריות ואגמים. בהדרכתו המעולה של רן שהם.\n",
     "price": "בפרסום",
     "schedule": "",
-    "date": "בפרסום",
+    "date": "03-10/05/2026",
     "image": "https://i.postimg.cc/vTj9bbLf/wrwnh.jpg",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLSeQi04TQ-bvlMoRLUXjczzARjep49yYx0CwecyPXDTTWX5cBg/viewform?usp=publish-editor",
     "month": "מאי",
@@ -156,9 +156,9 @@ const INITIAL_TRIPS = [
   },
   {
     "active": true,
-    "title": "אנדורה",
-    "description": "אנדורה. להוסיף סימן יורו במחיר",
-    "price": "2,099-2,150 לחדר זוגי",
+    "title": "אנדורה וקוסטה בראווה",
+    "description": "קול קורא לטיול טבע מרהיב בין הפירנאים לאנדורה, עם נופים דרמטיים, אגמים, רכבלים והליכות קלות.\nשילוב של חוויה, עומק וקצב מותאם לקבוצה.\nלחצו על הקישור למטה לפרטים נוספים",
+    "price": "בפרסום",
     "schedule": "",
     "date": "17-24/6/2026",
     "image": "https://i.postimg.cc/g0qSS6x7/'ndwrh.jpg",
@@ -168,11 +168,11 @@ const INITIAL_TRIPS = [
   },
   {
     "active": true,
-    "title": "טיול לירושלים 7-9/7/2026",
-    "description": "פרטים על הטיול ינתנו בהמשך",
-    "price": "ינתן בהמשך",
+    "title": "טיול קיץ לירושלים ",
+    "description": "הטיול המסורתי של מטיילי \"ביתנו\" לירושלים.\nפרטים מלאים בהמשך",
+    "price": "יתפרסם בהמשך",
     "schedule": "",
-    "date": "7/7/26",
+    "date": "7-9/07/2026",
     "image": "https://i.postimg.cc/6qz4GLmz/lprswm-lyrwslym.jpg",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLScoyzy0QrX6Jae8JE21oB7Bai2t4DB3qDRaJ3Drtela4eTHUQ/viewform?usp=publish-editor",
     "month": "יולי",
@@ -181,10 +181,10 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "ונציה עם ירדנה עציון",
-    "description": "פרטים ינתנו בהמשך",
+    "description": "נצא בהדרכת ירדנה עציון לביקור מודרך בביאנלה של ונציה, אחת מבמות האמנות החשובות בעולם, המתרחשת בתוך עיר שהיא יצירת אמנות בפני עצמה.\nנחקור ונעמיק יחד במה שמבקשת האמנות העכשווית לומר על העולם שבו אנחנו חיים.\n\nפרסום מסודר עם כל הפרטים ייצא בהמשך",
     "price": "בהמשך",
     "schedule": "",
-    "date": "אוקטובר",
+    "date": "18-23/10/2026",
     "image": "https://i.postimg.cc/FRr9J55B/wnzyh-lprswm-htywl.jpg",
     "link": "https://docs.google.com/forms/d/e/1FAIpQLSehzUCp4xJYR0DutsPu6HpMaikqGZI1POqvgOAT5hpCKEHTxA/viewform?usp=publish-editor",
     "month": "אוקטובר",
@@ -193,7 +193,7 @@ const INITIAL_TRIPS = [
   {
     "id": 1,
     "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
-    "description": "טיול יום קליל הכולל הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+    "description": "טיולי יום קלים, הכוללים הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
     "image": "https://i.postimg.cc/VL43ZrtS/mzph-'lwmwt-lprswm-sl-'dm.jpg",
     "price": "משתנה לפי הטיול",
     "date": "משתנה לפי הטיול",
@@ -204,7 +204,7 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "קהילה צועדת עם חדוה הדר",
-    "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת",
+    "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת. אם טרם הצטרפתם לקבוצת הווטצאפ של הטיולים, תוכלו להצטרף ושם מופץ המידע על הטיולים.",
     "price": "משתנה לפי הטיול",
     "schedule": "",
     "date": "משתנה לפי הטיול",
@@ -216,7 +216,7 @@ const INITIAL_TRIPS = [
   {
     "active": true,
     "title": "סיורי אומנות עם ירדנה עציון",
-    "description": "סדרת סיורים בגלריות ובמוזיאונים בארץ\n",
+    "description": "סדרה המיועדת לסקרנים שבינינו, כאלה שאוהבים להתבונן, לשאול ולפגוש אמנות חיה ונושמת.\nסיורי אמנות עכשווית בהדרכת ירדנה עציון, בגלריות, מוזיאונים ומרחבים ציבוריים.\nהתוכן מותאם לתערוכות המוצגות בזמן אמת, וכולל שיחה, הקשר והשראה.\nהסיורים נינוחים, ללא הליכות ארוכות, ולעיתים משלבים מפגש עם אמנים בשטח.",
     "price": "משתנה לפי הסיור",
     "schedule": "",
     "date": "משתנה לפי הסיור",
