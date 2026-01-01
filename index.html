@@ -51,223 +51,237 @@
         // ************************** תחילת אזור נתונים לעדכון  *****************************
         // ***********************************************************************************
         
-        // *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 15) ***
-        const SITE_VERSION = 15; 
+     /* הדבק את הקוד הזה בראש הקובץ */
 
-        const INITIAL_COURSES = [
-          {
-            "id": 1,
-            "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
-            "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת.\nיש שני מועדים:\nיום שלישי - 08:45-10:00\nיום שלישי - 10:30-11:45",
-            "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
-            "price": "50 ש\"ח לסדרת המפגשים",
-            "schedule": "ימי שלישי",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSfG7jvr6ukUNFOSLoT8r720NB4soN3E_j2BkTqvXVAj2ak35A/viewform?usp=header",
-            "active": true
-          },
-          {
-            "id": 2,
-            "title": "משבר האקלים - מה צופן לנו העתיד?",
-            "description": "איך ייראה משק האנרגיה של העתיד, ומה זה אומר על החיים שלנו כאן ועכשיו?\nמפגש שמאיר את עולם האנרגיה, האתגרים הסביבתיים והפתרונות שכבר נמצאים בדרך.\nלמי שמבקש להבין, לשאול ולחשוב קדימה.",
-            "image": "https://i.postimg.cc/prP656Qv/Ecology-Earth-Environment-Photo.jpg",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "ימי שלישי 8:45-10:00",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
-            "active": true
-          },
-          {
-            "active": true,
-            "title": "המטבח בדרך הטבע",
-            "description": "איך אוכלים נכון, בגיל שלנו?\nהרצאות על תזונה, גוף ובריאות, עם דגש על יישום יומיומי ושאלות אמיתיות מהחיים.\nידע עדכני, ברור ורלוונטי למצב הבריאותי של כל אחד.\n\nהקורס מותאם למתחילים וגם למי שכבר למד עם דינה בסמסטר הראשון",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "ימי שני 8:45-10:00",
-            "date": "",
-            "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
-            "id": 1765463548185
-          },
-          {
-            "active": true,
-            "title": "גיאולוגיה",
-            "description": "מה קורה מתחת לרגליים שלנו?\nקורס מרתק על תהליכים גיאולוגיים, מים, קרקע ונופים, שמסביר איך נוצר העולם שאנחנו חיים בו.\n\nהקורס מותאם לתלמידים חדשים וגם לממשיכים שכבר למדו גיאולוגיה בסמסטר הראשון.",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "ימי שלישי 10:30-11:45",
-            "date": "",
-            "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
-            "id": 1765463832870
-          },
-          {
-            "active": true,
-            "title": "מעגל החיים ביהדות",
-            "description": "מסע מרתק בין תחנות החיים, דרך התרבות העברית והיהודית.\nקורס שמזמין התבוננות, שאלות והבנה עמוקה של האדם והקהילה.",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "יום חמישי 10:30-11:45",
-            "date": "",
-            "image": "https://i.postimg.cc/k5hjWKkK/prswm-lhwg-m'gl-hhyym.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSefaRcBnhml79I9KaDe4tEZoEsI3HkaDkjH-FArjeaT3sOPIg/viewform?usp=dialog",
-            "month": "",
-            "id": 1766330499853
-          },
-          {
-            "active": true,
-            "title": "סדרת מפגשים עם שמוליק הראלי",
-            "description": "סדרה קצרה, של 4 מפגשים על הרעיון הקיבוצי והקמתו בעמק הירדן.\nמבט אזורי ומעמיק על תהליכים ששינו ועדיין משנים את פני המקום.",
-            "price": "ללא עלות",
-            "schedule": "שלישי 10:30-11:45",
-            "date": "",
-            "image": "https://i.postimg.cc/7Z5x0wQR/Whats-App-Image-2025-12-29-at-10-01-45.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=header",
-            "month": "",
-            "id": 1766926582897
-          },
-          {
-            "active": true,
-            "title": "כסף על ים כנרת - לומדים להבין ולנהל את הכסף",
-            "description": "סדנה בביתנו",
-            "price": "150 ש\"ח לסדרת המפגשים",
-            "schedule": "ימי שני 17:00-19:00",
-            "date": "",
-            "image": "https://i.postimg.cc/QMBwfMQd/knrt.jpg",
-            "link": "https://www.mmk.org.il/he/courses/%D7%9B%D7%A1%D7%A3-%D7%A2%D7%9C-%D7%99%D7%9D-%D7%9B%D7%A0%D7%A8%D7%AA-0",
-            "month": "",
-            "id": 1767092364693
-          },
-          {
-            "active": true,
-            "title": "פרקים בתולדות יהדות ארצות הברית",
-            "description": "מהו סיפורה של יהדות ארצות הברית, ואיך הפכה לקהילה היהודית הגדולה בעולם?\nמסע מרתק בין זהות, הגירה, תרבות והשפעה.",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "שלישי 8:45-10:00",
-            "date": "",
-            "image": "https://i.postimg.cc/V5QS2TC6/hwrdh-(4).jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeJnVjKwyGLbqStig0ato13dT_JT5tlDGqlKKSFSI_Be3RAzg/viewform?usp=publish-editor",
-            "month": "",
-            "id": 1767183288584
-          },
-          {
-            "active": true,
-            "title": "פלייסטיק",
-            "description": "איך תנועה קטנה יכולה לחולל שינוי גדול בגוף ובנשימה?\nפלייסטיק היא שיטת תנועה רכה ומדויקת, שמחזקת, משחררת ומחדדת מודעות דרך הקשבה לגוף.\nמתאים למי שמחפש תנועה מיטיבה, עמוקה ולא מאומצת.",
-            "price": "280 ש\"ח לסמסטר אחד",
-            "schedule": "שלישי ורביעי",
-            "date": "",
-            "image": "https://i.postimg.cc/fR4zjmxH/Whats-App-Image-2025-12-31-at-14-28-37.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeDCxIak8XlhKq8lEEXUV1a4KWqO4lbfi6_hRSujQtd596okQ/viewform?usp=publish-editor",
-            "month": "",
-            "id": 1767184105603
-          }
-        ];
+// *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 16) ***
+const SITE_VERSION = 16; 
 
-        const INITIAL_TRIPS = [
-          {
-            "active": true,
-            "title": "אילת",
-            "description": "נותרו שני חדרים אחרונים, למי לשמור אותם?\nלחצו על הכפתור למטה לפרטים נוספים על הטיול.",
-            "price": "2,250 בחדר זוגי",
-            "schedule": "",
-            "date": "15-18/02/2026",
-            "image": "https://i.postimg.cc/BnqgwLnC/'ylt.png",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSdVHNyyGKw7FqyWH2-PKfNnMsU1FR3RWZ4nlK93BD8F9kkp-Q/viewform?usp=dialog",
-            "month": "פברואר",
-            "id": 1767091673773
-          },
-          {
-            "active": true,
-            "title": "הגושרים - גליל עליון",
-            "description": "מתוכנן טיול אביבי לגליל המערבי והגליל העליון, לינה בקיבוץ הגושרים. פרטים יפורסמו בהמשך. ",
-            "price": "יפורסם בהמשך",
-            "schedule": "",
-            "date": "26-28/04/2026",
-            "image": "https://i.postimg.cc/jdW5Rbhd/hgwsrym.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeMiWFW7lMyxOSKQn2wEgvj1aQofxCo75wBS20d4z9nyh9Rjg/viewform?usp=publish-editor",
-            "month": "אפריל",
-            "id": 1766329262694
-          },
-          {
-            "active": true,
-            "title": "צפון איטליה עם רן שהם",
-            "description": "הטיול שכל כך חיכיתם לו, טיול עומק מאורגן לדולומיטים וצפון איטליה, בשילוב נופים דרמטיים, ערים היסטוריות ואגמים. בהדרכתו המעולה של רן שהם.\n",
-            "price": "מופיע בטופס ההרשמה",
-            "schedule": "",
-            "date": "03-10/05/2026",
-            "image": "https://i.postimg.cc/vTj9bbLf/wrwnh.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeQi04TQ-bvlMoRLUXjczzARjep49yYx0CwecyPXDTTWX5cBg/viewform?usp=publish-editor",
-            "month": "מאי",
-            "id": 1766671609147
-          },
-          {
-            "active": true,
-            "title": "אנדורה וקוסטה בראווה",
-            "description": "קול קורא לטיול טבע מרהיב בין הפירנאים לאנדורה, עם נופים דרמטיים, אגמים, רכבלים והליכות קלות.\nשילוב של חוויה, עומק וקצב מותאם לקבוצה.\nלחצו על הקישור למטה לפרטים נוספים",
-            "price": "מופיע בטופס ההרשמה",
-            "schedule": "",
-            "date": "17-24/06/2026",
-            "image": "https://i.postimg.cc/g0qSS6x7/'ndwrh.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLScquAxI8_D_iEzQQmC8ZjTwGpDqSmKLh8Qgu4wrBriWFMmzcw/viewform?usp=publish-editor",
-            "month": "יוני",
-            "id": 1767093132374
-          },
-          {
-            "active": true,
-            "title": "טיול קיץ לירושלים ",
-            "description": "הטיול המסורתי של מטיילי \"ביתנו\" לירושלים.\nפרטים מלאים בהמשך",
-            "price": "יפורסם בהמשך",
-            "schedule": "",
-            "date": "07-09/07/2026",
-            "image": "https://i.postimg.cc/6qz4GLmz/lprswm-lyrwslym.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLScoyzy0QrX6Jae8JE21oB7Bai2t4DB3qDRaJ3Drtela4eTHUQ/viewform?usp=publish-editor",
-            "month": "יולי",
-            "id": 1766330724698
-          },
-          {
-            "active": true,
-            "title": "ונציה עם ירדנה עציון",
-            "description": "נצא בהדרכת ירדנה עציון לביקור מודרך בביאנלה של ונציה, אחת מבמות האמנות החשובות בעולם, המתרחשת בתוך עיר שהיא יצירת אמנות בפני עצמה.\nנחקור ונעמיק יחד במה שמבקשת האמנות העכשווית לומר על העולם שבו אנחנו חיים.\n\nפרסום מסודר עם כל הפרטים ייצא בהמשך",
-            "price": "יפורסם בהמשך",
-            "schedule": "",
-            "date": "18-23/10/2026",
-            "image": "https://i.postimg.cc/FRr9J55B/wnzyh-lprswm-htywl.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSehzUCp4xJYR0DutsPu6HpMaikqGZI1POqvgOAT5hpCKEHTxA/viewform?usp=publish-editor",
-            "month": "אוקטובר",
-            "id": 1766330917984
-          },
-          {
-            "id": 1,
-            "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
-            "description": "טיולי יום קלים, הכוללים הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
-            "image": "https://i.postimg.cc/W4m14nH6/Whats-App-Image-2025-10-23-at-20-31-37.jpg",
-            "price": "משתנה לפי הטיול",
-            "date": "משתנה לפי הטיול",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=header",
-            "active": true,
-            "month": "סדרת טיולים שנתית"
-          },
-          {
-            "active": true,
-            "title": "קהילה צועדת עם חדוה הדר",
-            "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת. אם טרם הצטרפתם לקבוצת הווטצאפ של הטיולים, תוכלו להצטרף ושם מופץ המידע על הטיולים.",
-            "price": "משתנה לפי הטיול",
-            "schedule": "",
-            "date": "משתנה לפי הטיול",
-            "image": "https://i.postimg.cc/j5rvHscz/Whats-App-Image-2025-12-31-at-15-06-50.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSdjlzF5kQWKbxNfCmi_-IDQ1ANb_xaj5wgnKWZ-MaDNO8y9BA/viewform?usp=publish-editor",
-            "month": "סדרת טיולים שנתית",
-            "id": 1766329851381
-          },
-          {
-            "active": true,
-            "title": "סיורי אומנות עם ירדנה עציון",
-            "description": "סדרה המיועדת לסקרנים שבינינו, כאלה שאוהבים להתבונן, לשאול ולפגוש אמנות חיה ונושמת.\nסיורי אמנות עכשווית בהדרכת ירדנה עציון, בגלריות, מוזיאונים ומרחבים ציבוריים.\nהתוכן מותאם לתערוכות המוצגות בזמן אמת, וכולל שיחה, הקשר והשראה.\nהסיורים נינוחים, ללא הליכות ארוכות, ולעיתים משלבים מפגש עם אמנים בשטח.",
-            "price": "משתנה לפי הסיור",
-            "schedule": "",
-            "date": "משתנה לפי הסיור",
-            "image": "https://i.postimg.cc/VsKxD0n9/lprswm-sl-yrdnh.jpg",
-            "link": "https://docs.google.com/forms/d/e/1FAIpQLSeo7x6oLqO79sazHU-VU4bbi1hkqvu2BlmueF0-dd6L1NmITg/viewform?usp=publish-editor",
-            "month": "סדרת סיורים שנתית",
-            "id": 1766330247200
-          }
-        ];
+const INITIAL_COURSES = [
+  {
+    "active": true,
+    "title": "המטבח בדרך הטבע",
+    "description": "איך אוכלים נכון, בגיל שלנו?\nהרצאות על תזונה, גוף ובריאות, עם דגש על יישום יומיומי ושאלות אמיתיות מהחיים.\nידע עדכני, ברור ורלוונטי למצב הבריאותי של כל אחד.\n\nהקורס מותאם למתחילים וגם למי שכבר למד עם דינה בסמסטר הראשון",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "ימי שני 8:45-10:00",
+    "date": "",
+    "image": "https://i.postimg.cc/tJsvQ1c6/Never-realized-this-before.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSf_YhuAVs04VOJmWPMLvjLU8dmusKwRle8AZINzPvvmzZ5VAQ/viewform?usp=publish-editor",
+    "id": 1765463548185
+  },
+  {
+    "active": true,
+    "title": "כסף על ים כנרת - לומדים להבין ולנהל את הכסף",
+    "description": "הכסף שלנו, הבחירות שלנו, והעתיד שלנו.\nסדנה מעשית שמעניקה כלים להבנה, שליטה והתנהלות כלכלית בטוחה.",
+    "price": "150 ש\"ח לסדרת המפגשים",
+    "schedule": "ימי שני 17:00-19:00",
+    "date": "",
+    "image": "https://i.postimg.cc/QMBwfMQd/knrt.jpg",
+    "link": "https://www.mmk.org.il/he/courses/%D7%9B%D7%A1%D7%A3-%D7%A2%D7%9C-%D7%99%D7%9D-%D7%9B%D7%A0%D7%A8%D7%AA-0",
+    "month": "",
+    "id": 1767092364693
+  },
+  {
+    "active": true,
+    "title": "פעילות גופנית באוויר הפתוח",
+    "description": "חוג פעילות גופנית שמשלב חיזוק, יציבה ושיפור היכולת היומיומית, באוויר הפתוח.\nלמי שמחפש לשמור על הגוף פעיל, יציב וחיוני לאורך זמן.",
+    "price": "50-80 ש\"ח לחודש",
+    "schedule": "שני ורביעי",
+    "date": "",
+    "image": "https://i.postimg.cc/VNvSmvxh/Whats-App-Image-2025-12-31-at-15-31-33.jpg",
+    "link": "https://docs.google.com/forms/d/1Rx6Y5je7OAHK9ppfaEPPNt_A9-v28Jz78XCFQOnskeg/edit",
+    "month": "",
+    "id": 1767251850952
+  },
+  {
+    "id": 1,
+    "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
+    "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת.\nיש שני מועדים:\nיום שלישי - 08:45-10:00\nיום שלישי - 10:30-11:45",
+    "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
+    "price": "50 ש\"ח לסדרת המפגשים",
+    "schedule": "ימי שלישי",
+    "link": "https://docs.google.com/forms/d/1pCJc41ZW7WIbiErr_4vwZRO6A2UN6K2SkakoStIrozs/edit",
+    "active": true
+  },
+  {
+    "id": 2,
+    "title": "משבר האקלים - מה צופן לנו העתיד?",
+    "description": "איך ייראה משק האנרגיה של העתיד, ומה זה אומר על החיים שלנו כאן ועכשיו?\nמפגש שמאיר את עולם האנרגיה, האתגרים הסביבתיים והפתרונות שכבר נמצאים בדרך.\nלמי שמבקש להבין, לשאול ולחשוב קדימה.",
+    "image": "https://i.postimg.cc/prP656Qv/Ecology-Earth-Environment-Photo.jpg",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "ימי שלישי 8:45-10:00",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeKaATE1jZ-fqGDvmyXR2fQWb1X4bUxG_2aGg8M_9R0WqcBdg/viewform?usp=header",
+    "active": true
+  },
+  {
+    "active": true,
+    "title": "גיאולוגיה",
+    "description": "מה קורה מתחת לרגליים שלנו?\nקורס מרתק על תהליכים גיאולוגיים, מים, קרקע ונופים, שמסביר איך נוצר העולם שאנחנו חיים בו.\n\nהקורס מותאם לתלמידים חדשים וגם לממשיכים שכבר למדו גיאולוגיה בסמסטר הראשון.",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "ימי שלישי 10:30-11:45",
+    "date": "",
+    "image": "https://i.postimg.cc/C17dT58d/Earth-is-eating-itself-A-giant-blob-is-dragging-our-planet-s-crust-and-its-worrying.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLScD7PnB2Ckc2lM5rKK-U7Fa5lkbQN2H_FXmHpAKB4ooXRqntg/viewform?usp=publish-editor",
+    "id": 1765463832870
+  },
+  {
+    "active": true,
+    "title": "סדרת מפגשים עם שמוליק הראלי",
+    "description": "סדרה קצרה, של 4 מפגשים על הרעיון הקיבוצי והקמתו בעמק הירדן.\nמבט אזורי ומעמיק על תהליכים ששינו ועדיין משנים את פני המקום.",
+    "price": "ללא עלות",
+    "schedule": "שלישי 10:30-11:45",
+    "date": "",
+    "image": "https://i.postimg.cc/7Z5x0wQR/Whats-App-Image-2025-12-29-at-10-01-45.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSej69WxjZr7SLyV8zFm7bFi2-anSn45bCyqPOIEnGG0E3SoFg/viewform?usp=header",
+    "month": "",
+    "id": 1766926582897
+  },
+  {
+    "active": true,
+    "title": "פרקים בתולדות יהדות ארצות הברית",
+    "description": "מהו סיפורה של יהדות ארצות הברית, ואיך הפכה לקהילה היהודית הגדולה בעולם?\nמסע מרתק בין זהות, הגירה, תרבות והשפעה.",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "שלישי 8:45-10:00",
+    "date": "",
+    "image": "https://i.postimg.cc/V5QS2TC6/hwrdh-(4).jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeJnVjKwyGLbqStig0ato13dT_JT5tlDGqlKKSFSI_Be3RAzg/viewform?usp=publish-editor",
+    "month": "",
+    "id": 1767183288584
+  },
+  {
+    "active": true,
+    "title": "פלייסטיק",
+    "description": "איך תנועה קטנה יכולה לחולל שינוי גדול בגוף ובנשימה?\nפלייסטיק היא שיטת תנועה רכה ומדויקת, שמחזקת, משחררת ומחדדת מודעות דרך הקשבה לגוף.\nמתאים למי שמחפש תנועה מיטיבה, עמוקה ולא מאומצת.",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "שלישי ורביעי",
+    "date": "",
+    "image": "https://i.postimg.cc/fR4zjmxH/Whats-App-Image-2025-12-31-at-14-28-37.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeDCxIak8XlhKq8lEEXUV1a4KWqO4lbfi6_hRSujQtd596okQ/viewform?usp=publish-editor",
+    "month": "",
+    "id": 1767184105603
+  },
+  {
+    "active": true,
+    "title": "מעגל החיים ביהדות",
+    "description": "מסע מרתק בין תחנות החיים, דרך התרבות העברית והיהודית.\nקורס שמזמין התבוננות, שאלות והבנה עמוקה של האדם והקהילה.",
+    "price": "280 ש\"ח לסמסטר אחד",
+    "schedule": "יום חמישי 10:30-11:45",
+    "date": "",
+    "image": "https://i.postimg.cc/k5hjWKkK/prswm-lhwg-m'gl-hhyym.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSefaRcBnhml79I9KaDe4tEZoEsI3HkaDkjH-FArjeaT3sOPIg/viewform?usp=dialog",
+    "month": "",
+    "id": 1766330499853
+  }
+];
+
+const INITIAL_TRIPS = [
+  {
+    "active": true,
+    "title": "אילת",
+    "description": "נותרו שני חדרים אחרונים, למי לשמור אותם?\nלחצו על הכפתור למטה לפרטים נוספים על הטיול.",
+    "price": "2,250 בחדר זוגי",
+    "schedule": "",
+    "date": "15-18/02/2026",
+    "image": "https://i.postimg.cc/BnqgwLnC/'ylt.png",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdVHNyyGKw7FqyWH2-PKfNnMsU1FR3RWZ4nlK93BD8F9kkp-Q/viewform?usp=dialog",
+    "month": "פברואר",
+    "id": 1767091673773
+  },
+  {
+    "active": true,
+    "title": "הגושרים - גליל עליון",
+    "description": "מתוכנן טיול אביבי לגליל המערבי והגליל העליון, לינה בקיבוץ הגושרים. פרטים יפורסמו בהמשך. ",
+    "price": "יפורסם בהמשך",
+    "schedule": "",
+    "date": "26-28/04/2026",
+    "image": "https://i.postimg.cc/jdW5Rbhd/hgwsrym.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeMiWFW7lMyxOSKQn2wEgvj1aQofxCo75wBS20d4z9nyh9Rjg/viewform?usp=publish-editor",
+    "month": "אפריל",
+    "id": 1766329262694
+  },
+  {
+    "active": true,
+    "title": "צפון איטליה עם רן שהם",
+    "description": "הטיול שכל כך חיכיתם לו, טיול עומק מאורגן לדולומיטים וצפון איטליה, בשילוב נופים דרמטיים, ערים היסטוריות ואגמים. בהדרכתו המעולה של רן שהם.\n",
+    "price": "מופיע בטופס ההרשמה",
+    "schedule": "",
+    "date": "03-10/05/2026",
+    "image": "https://i.postimg.cc/vTj9bbLf/wrwnh.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeQi04TQ-bvlMoRLUXjczzARjep49yYx0CwecyPXDTTWX5cBg/viewform?usp=publish-editor",
+    "month": "מאי",
+    "id": 1766671609147
+  },
+  {
+    "active": true,
+    "title": "אנדורה וקוסטה בראווה",
+    "description": "קול קורא לטיול טבע מרהיב בין הפירנאים לאנדורה, עם נופים דרמטיים, אגמים, רכבלים והליכות קלות.\nשילוב של חוויה, עומק וקצב מותאם לקבוצה.\nלחצו על הקישור למטה לפרטים נוספים",
+    "price": "מופיע בטופס ההרשמה",
+    "schedule": "",
+    "date": "17-24/06/2026",
+    "image": "https://i.postimg.cc/g0qSS6x7/'ndwrh.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLScquAxI8_D_iEzQQmC8ZjTwGpDqSmKLh8Qgu4wrBriWFMmzcw/viewform?usp=publish-editor",
+    "month": "יוני",
+    "id": 1767093132374
+  },
+  {
+    "active": true,
+    "title": "טיול קיץ לירושלים ",
+    "description": "הטיול המסורתי של מטיילי \"ביתנו\" לירושלים.\nפרטים מלאים בהמשך",
+    "price": "יפורסם בהמשך",
+    "schedule": "",
+    "date": "07-09/07/2026",
+    "image": "https://i.postimg.cc/6qz4GLmz/lprswm-lyrwslym.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLScoyzy0QrX6Jae8JE21oB7Bai2t4DB3qDRaJ3Drtela4eTHUQ/viewform?usp=publish-editor",
+    "month": "יולי",
+    "id": 1766330724698
+  },
+  {
+    "active": true,
+    "title": "ונציה עם ירדנה עציון",
+    "description": "נצא בהדרכת ירדנה עציון לביקור מודרך בביאנלה של ונציה, אחת מבמות האמנות החשובות בעולם, המתרחשת בתוך עיר שהיא יצירת אמנות בפני עצמה.\nנחקור ונעמיק יחד במה שמבקשת האמנות העכשווית לומר על העולם שבו אנחנו חיים.\n\nפרסום מסודר עם כל הפרטים ייצא בהמשך",
+    "price": "יפורסם בהמשך",
+    "schedule": "",
+    "date": "18-23/10/2026",
+    "image": "https://i.postimg.cc/FRr9J55B/wnzyh-lprswm-htywl.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSehzUCp4xJYR0DutsPu6HpMaikqGZI1POqvgOAT5hpCKEHTxA/viewform?usp=publish-editor",
+    "month": "אוקטובר",
+    "id": 1766330917984
+  },
+  {
+    "id": 1,
+    "title": "סדרת טיולים בהליכה נינוחה עם אדם שרמן",
+    "description": "טיולי יום קלים, הכוללים הליכה קצרה בטבע, ארוחת צהריים משותפת והדרכה צמודה.",
+    "image": "https://i.postimg.cc/W4m14nH6/Whats-App-Image-2025-10-23-at-20-31-37.jpg",
+    "price": "משתנה לפי הטיול",
+    "date": "משתנה לפי הטיול",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdtW9WU5_ZZy69t1oawoxYtFyTNRKnGqJux_-kREb8oRPt88A/viewform?usp=header",
+    "active": true,
+    "month": "סדרת טיולים שנתית"
+  },
+  {
+    "active": true,
+    "title": "קהילה צועדת עם חדוה הדר",
+    "description": "סדרת טיולים בשבילי הארץ, מיועדת למיטיבי לכת. אם טרם הצטרפתם לקבוצת הווטצאפ של הטיולים, תוכלו להצטרף ושם מופץ המידע על הטיולים.",
+    "price": "משתנה לפי הטיול",
+    "schedule": "",
+    "date": "משתנה לפי הטיול",
+    "image": "https://i.postimg.cc/j5rvHscz/Whats-App-Image-2025-12-31-at-15-06-50.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSdjlzF5kQWKbxNfCmi_-IDQ1ANb_xaj5wgnKWZ-MaDNO8y9BA/viewform?usp=publish-editor",
+    "month": "סדרת טיולים שנתית",
+    "id": 1766329851381
+  },
+  {
+    "active": true,
+    "title": "סיורי אומנות עם ירדנה עציון",
+    "description": "סדרה המיועדת לסקרנים שבינינו, כאלה שאוהבים להתבונן, לשאול ולפגוש אמנות חיה ונושמת.\nסיורי אמנות עכשווית בגלריות, מוזיאונים ומרחבים ציבוריים.\nהתוכן מותאם לתערוכות המוצגות בזמן אמת, וכולל שיחה, הקשר והשראה.\nהסיורים נינוחים, ללא הליכות ארוכות, ולעיתים משלבים מפגש עם אמנים בשטח.",
+    "price": "משתנה לפי הסיור",
+    "schedule": "",
+    "date": "משתנה לפי הסיור",
+    "image": "https://i.postimg.cc/VsKxD0n9/lprswm-sl-yrdnh.jpg",
+    "link": "https://docs.google.com/forms/d/e/1FAIpQLSeo7x6oLqO79sazHU-VU4bbi1hkqvu2BlmueF0-dd6L1NmITg/viewform?usp=publish-editor",
+    "month": "סדרת סיורים שנתית",
+    "id": 1766330247200
+  }
+];
         
         // ***********************************************************************************
         // **************************** סוף אזור נתונים לעדכון  ****************************
