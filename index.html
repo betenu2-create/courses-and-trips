@@ -24,6 +24,97 @@
         html { font-size: 18px; } 
         
         #error-display { display: none; padding: 20px; background: #fee2e2; color: #991b1b; text-align: center; margin: 20px; border-radius: 8px; direction: rtl; }
+
+        /* ============================================================
+           דף "שנת הפעילות האישית"
+           מעוצב להדפסת A4 בשחור-לבן: ההיררכיה נבנית ממשקל, רווח
+           וקווי הפרדה אפורים - ולא מצבע. הצבע רק מוסיף בהירות.
+           ============================================================ */
+        .pa-page { background: #eceeec; min-height: 100vh; padding: 24px 12px 64px; }
+
+        .pa-toolbar { max-width: 210mm; margin: 0 auto 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+        .pa-sheet {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: #fff;
+            padding: 16mm 15mm 13mm;
+            box-shadow: 0 6px 30px rgba(0,0,0,.13);
+            border-top: 3px solid #0f766e;
+            color: #1f2937;
+            line-height: 1.55;
+        }
+
+        /* --- כותרת --- */
+        .pa-logos { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 46px; margin-bottom: 12px; }
+        .pa-logos img { max-height: 52px; max-width: 170px; object-fit: contain; }
+        .pa-wordmark { font-size: .76rem; font-weight: 700; letter-spacing: .05em; color: #6b7280; }
+        .pa-head { text-align: center; border-bottom: 1px solid #d6dad7; padding-bottom: 15px; margin-bottom: 20px; }
+        .pa-kicker { font-size: 1.05rem; color: #4b5563; margin: 0; }
+        .pa-name { font-size: 2.35rem; font-weight: 700; margin: 2px 0 7px; line-height: 1.15; }
+        .pa-org { font-size: 1.02rem; color: #4b5563; margin: 0; }
+
+        /* --- מערכת הפעילות --- */
+        .pa-table { width: 100%; border-collapse: collapse; }
+        .pa-table caption { text-align: right; font-weight: 700; font-size: 1.02rem; color: #374151; padding-bottom: 9px; }
+        .pa-table th {
+            font-size: .9rem; font-weight: 700; color: #374151; text-align: right;
+            background: #f4f6f5; padding: 9px 10px;
+            border-top: 1px solid #c6ccc8; border-bottom: 1px solid #c6ccc8;
+        }
+        .pa-table td { padding: 12px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; font-size: 1.02rem; }
+        .pa-table tbody tr:last-child td { border-bottom: 1px solid #c6ccc8; }
+        .pa-activity { font-weight: 700; }
+        .pa-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .pa-blank { color: #b6bbb8; }
+
+        /* --- מסר אישי ומשפט השראה --- */
+        .pa-message { margin: 24px 0 0; font-size: 1.06rem; }
+        .pa-quote { margin: 15px 0 0; padding-right: 13px; border-right: 2px solid #cdd5d1; color: #374151; font-style: italic; font-size: 1rem; }
+
+        /* --- מקום לרשום לעצמי --- */
+        .pa-notes { margin-top: 24px; }
+        .pa-notes h2 { font-size: .92rem; font-weight: 700; color: #6b7280; margin: 0 0 11px; }
+        .pa-line { border-bottom: 1px solid #e3e6e4; height: 27px; }
+
+        /* --- תחתית --- */
+        .pa-foot { margin-top: 22px; padding-top: 10px; border-top: 1px solid #e3e6e4; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: .85rem; color: #6b7280; }
+
+        /* --- כרטיס כיס לגזירה --- */
+        .pa-card { margin-top: 20px; border: 1px dashed #a3a9a5; border-radius: 6px; padding: 12px 14px; }
+        .pa-card h2 { font-size: .83rem; font-weight: 700; color: #6b7280; margin: 0 0 9px; }
+        .pa-card ul { margin: 0; padding: 0; list-style: none; }
+        .pa-card li { padding: 3px 0; font-size: .95rem; }
+        .pa-sep { color: #a3a9a5; padding: 0 7px; }
+
+        /* --- מצב מצומצם: נכנס אוטומטית במערכת עמוסה, כדי שהדף יישאר על עמוד A4 אחד --- */
+        .pa-dense .pa-logos { min-height: 38px; margin-bottom: 8px; }
+        .pa-dense .pa-head { padding-bottom: 10px; margin-bottom: 14px; }
+        .pa-dense .pa-name { font-size: 1.95rem; }
+        .pa-dense .pa-table td { padding: 7px 10px; }
+        .pa-dense .pa-message { margin-top: 16px; }
+        .pa-dense .pa-quote { margin-top: 10px; }
+        .pa-dense .pa-notes { margin-top: 15px; }
+        .pa-dense .pa-notes h2 { margin-bottom: 7px; }
+        .pa-dense .pa-line { height: 22px; }
+        .pa-dense .pa-foot { margin-top: 14px; }
+        .pa-dense .pa-card { margin-top: 13px; padding: 9px 14px; }
+
+        @media print {
+            @page { size: A4; margin: 12mm 13mm 10mm; }
+            html { font-size: 11.5pt; }
+            body, .pa-page { background: #fff !important; }
+            .no-print { display: none !important; }
+            .pa-page { padding: 0 !important; min-height: 0 !important; }
+            .pa-sheet {
+                max-width: none !important; margin: 0 !important;
+                padding: 5mm 0 0 !important; box-shadow: none !important;
+                border-top: 2pt solid #374151 !important;
+            }
+            .pa-table tr, .pa-card, .pa-notes, .pa-quote, .pa-message { page-break-inside: avoid; }
+            .pa-table thead { display: table-header-group; }
+            a { color: inherit !important; text-decoration: none !important; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -54,12 +145,15 @@
  /* הדבק את הקוד הזה בראש הקובץ */
 
 // *** שים לב! לפני שמירה, שנה את SITE_VERSION למספר הבא (למשל 17) ***
-const SITE_VERSION = 17; 
+const SITE_VERSION = 18;
 
 const INITIAL_COURSES = [
   {
     "active": true,
     "title": "המטבח בדרך הטבע",
+    "lecturer": "דינה",
+    "room": "",
+    "category": "lecture",
     "description": "איך אוכלים נכון, בגיל שלנו?\nהרצאות על תזונה, גוף ובריאות, עם דגש על יישום יומיומי ושאלות אמיתיות מהחיים.\nידע עדכני, ברור ורלוונטי למצב הבריאותי של כל אחד.\n\nהקורס מותאם למתחילים וגם למי שכבר למד עם דינה בסמסטר הראשון",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "ימי שני 8:45-10:00",
@@ -71,6 +165,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "כסף על ים כנרת - לומדים להבין ולנהל את הכסף",
+    "lecturer": "",
+    "room": "",
+    "category": "workshop",
     "description": "הכסף שלנו, הבחירות שלנו, והעתיד שלנו.\nסדנה מעשית שמעניקה כלים להבנה, שליטה והתנהלות כלכלית בטוחה.",
     "price": "150 ש\"ח לסדרת המפגשים",
     "schedule": "ימי שני 17:00-19:00",
@@ -83,6 +180,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "פעילות גופנית באוויר הפתוח",
+    "lecturer": "",
+    "room": "",
+    "category": "movement",
     "description": "חוג פעילות גופנית שמשלב חיזוק, יציבה ושיפור היכולת היומיומית, באוויר הפתוח.\nלמי שמחפש לשמור על הגוף פעיל, יציב וחיוני לאורך זמן.",
     "price": "50-80 ש\"ח לחודש",
     "schedule": "שני ורביעי",
@@ -95,6 +195,9 @@ const INITIAL_COURSES = [
   {
     "id": 1,
     "title": "אוריינות דיגיטלית ובינה מלאכותית - מחזור שני",
+    "lecturer": "",
+    "room": "",
+    "category": "workshop",
     "description": "קורס המשלב בתוכו את הבינה המלאכותית, שימוש בסמארטפון ובאפליקציות, צרכנות נבונה ובטיחות ברשת.\nיש שני מועדים:\nיום שלישי - 08:45-10:00\nיום שלישי - 10:30-11:45",
     "image": "https://i.postimg.cc/BZPC3G6n/Photo-Stock-Full-size-excited-elderly-gray-haired-mustache-bearded-man-50s-wear-yellow-shirt-sit-in.jpg",
     "price": "50 ש\"ח לסדרת המפגשים",
@@ -105,6 +208,9 @@ const INITIAL_COURSES = [
   {
     "id": 2,
     "title": "משבר האקלים - מה צופן לנו העתיד?",
+    "lecturer": "",
+    "room": "",
+    "category": "lecture",
     "description": "איך ייראה משק האנרגיה של העתיד, ומה זה אומר על החיים שלנו כאן ועכשיו?\nמפגש שמאיר את עולם האנרגיה, האתגרים הסביבתיים והפתרונות שכבר נמצאים בדרך.\nלמי שמבקש להבין, לשאול ולחשוב קדימה.",
     "image": "https://i.postimg.cc/prP656Qv/Ecology-Earth-Environment-Photo.jpg",
     "price": "280 ש\"ח לסמסטר אחד",
@@ -115,6 +221,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "גיאולוגיה",
+    "lecturer": "",
+    "room": "",
+    "category": "lecture",
     "description": "טקטוניקת הלוחות (נדידת היבשות), \nתולדות הים התיכון ב־200 מיליון השנים האחרונות; תולדות ים המלח ב־6 מיליון השנים האחרונות; תקופות הקרח ועוד.\n\nהקורס מותאם לתלמידים חדשים וגם לממשיכים שכבר למדו גיאולוגיה בסמסטר הראשון.",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "ימי שלישי 10:30-11:45",
@@ -126,6 +235,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "סדרת מפגשים עם שמוליק הראלי",
+    "lecturer": "שמוליק הראלי",
+    "room": "",
+    "category": "lecture",
     "description": "סדרה קצרה, של 4 מפגשים על הרעיון הקיבוצי והקמתו בעמק הירדן.\nמבט אזורי ומעמיק על תהליכים ששינו ועדיין משנים את פני המקום.",
     "price": "ללא עלות",
     "schedule": "שלישי 10:30-11:45",
@@ -138,6 +250,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "פרקים בתולדות יהדות ארצות הברית",
+    "lecturer": "",
+    "room": "",
+    "category": "lecture",
     "description": "מהו סיפורה של יהדות ארצות הברית, ואיך הפכה לקהילה היהודית הגדולה בעולם?\nמסע מרתק בין זהות, הגירה, תרבות והשפעה.",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "שלישי 8:45-10:00",
@@ -150,6 +265,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "פלייסטיק",
+    "lecturer": "",
+    "room": "",
+    "category": "movement",
     "description": "איך תנועה קטנה יכולה לחולל שינוי גדול בגוף ובנשימה?\nפלייסטיק היא שיטת תנועה רכה ומדויקת, שמחזקת, משחררת ומחדדת מודעות דרך הקשבה לגוף.\nמתאים למי שמחפש תנועה מיטיבה, עמוקה ולא מאומצת.",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "שלישי ורביעי",
@@ -162,6 +280,9 @@ const INITIAL_COURSES = [
   {
     "active": true,
     "title": "מעגל החיים ביהדות",
+    "lecturer": "",
+    "room": "",
+    "category": "lecture",
     "description": "מסע מרתק בין תחנות החיים, דרך התרבות העברית והיהודית.\nקורס שמזמין התבוננות, שאלות והבנה עמוקה של האדם והקהילה.",
     "price": "280 ש\"ח לסמסטר אחד",
     "schedule": "יום חמישי 08:45-10:00",
@@ -285,8 +406,50 @@ const INITIAL_TRIPS = [
         
         // ***********************************************************************************
         // **************************** סוף אזור נתונים לעדכון  ****************************
-        // ************************** נא לא לגעת בקוד מתחת לקו זה  *************************
         // ***********************************************************************************
+
+
+        // ===================================================================================
+        // ======== אזור הגדרות הדף האישי - מותר ורצוי לעדכן, אך מחוץ לאזור הנתונים ========
+        // ======== (שימו לב: "העתק נתונים לעדכון הקוד" לא מחליף את האזור הזה)      ========
+        // ===================================================================================
+
+        // לוגואים לכותרת הדף האישי. הדביקו כאן כתובת תמונה (URL).
+        // כל עוד השדה ריק - תוצג כותרת טקסט מעוצבת במקום הלוגו.
+        const ORG_LOGOS = {
+            founders: '',   // לוגו עמותת המייסדים
+            betenu: ''      // לוגו קתדרת "ביתנו"
+        };
+
+        // פרטי קשר שיופיעו בתחתית הדף האישי. שדה ריק פשוט לא יוצג.
+        const ORG_CONTACT = {
+            phone: '',
+            email: ''
+        };
+
+        // מאגר משפטי ההשראה. נבחר משפט אחד בלבד, לפי אופי הפעילויות שהמשתתף בחר.
+        // הבחירה קבועה לכל משתתף (נגזרת מהשם), כך שהדפסה חוזרת תיתן את אותו המשפט.
+        const INSPIRATION_QUOTES = {
+            // רוב הבחירות הן הרצאות או סדנאות
+            learning: [
+                'הסקרנות אינה תלויה בגיל. מי שממשיך לשאול, ממשיך לגדול.',
+                'כל מפגש של למידה מוסיף זווית חדשה למה שכבר ידענו.'
+            ],
+            // רוב הבחירות הן פעילות גופנית
+            movement: [
+                'הגוף שומר על מה שמפעילים אותו. כל תנועה היא השקעה בעצמנו.',
+                'לא צריך הרבה. צריך בקביעות.'
+            ],
+            // שילוב של תנועה ולמידה, או כל מקרה אחר
+            balance: [
+                'איזון בין הגוף, המוח והחברה הוא המתכון הפשוט לשנה טובה.',
+                'פעילות קבועה, למידה מתמשכת וחיי קהילה פעילים - שלושה אלה הולכים יחד.'
+            ]
+        };
+
+        // ===================================================================================
+        // ************************** נא לא לגעת בקוד מתחת לקו זה  *************************
+        // ===================================================================================
 
         // --- Helper for Safe LocalStorage (Prevents crashes on file://) ---
         const safeStorage = {
@@ -354,6 +517,74 @@ const INITIAL_TRIPS = [
                 return monthA - monthB;
             });
         };
+
+        // --- פירוק מערכת השעות מטקסט חופשי לעמודות (יום / שעות) ---
+        const DAY_NAMES = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+
+        const padTime = (t) => (t.length === 4 ? '0' + t : t);
+
+        const joinDays = (days) => {
+            if (days.length === 0) return '';
+            if (days.length === 1) return 'יום ' + days[0];
+            return days.slice(0, -1).join(', ') + ' ו' + days[days.length - 1];
+        };
+
+        const parseSchedule = (schedule) => {
+            const raw = (schedule || '').trim();
+            const days = DAY_NAMES.filter(d => raw.includes(d));
+            const match = raw.match(/(\d{1,2}:\d{2})\s*[-–—]\s*(\d{1,2}:\d{2})/);
+            return {
+                dayLabel: joinDays(days) || raw,
+                hours: match ? padTime(match[1]) + '–' + padTime(match[2]) : '',
+                dayValue: days.length ? DAY_NAMES.indexOf(days[0]) + 1 : 99
+            };
+        };
+
+        // --- בחירת משפט ההשראה לפי אופי הפעילויות שנבחרו ---
+        const pickQuote = (categories, seed) => {
+            const counts = { lecture: 0, movement: 0, workshop: 0 };
+            categories.forEach(c => { if (counts[c] !== undefined) counts[c]++; });
+            const total = categories.length;
+            if (!total) return '';
+
+            let group = 'balance';
+            if (counts.movement === total) {
+                group = 'movement';
+            } else if (counts.movement === 0 && counts.lecture + counts.workshop === total) {
+                group = 'learning';
+            }
+
+            const bank = INSPIRATION_QUOTES[group] || INSPIRATION_QUOTES.balance;
+            let hash = 0;
+            for (let i = 0; i < seed.length; i++) {
+                hash = (hash * 31 + seed.charCodeAt(i)) % 100000;
+            }
+            return bank[hash % bank.length];
+        };
+
+        // --- קידוד ופענוח הקישור האישי (base64 בטוח לכתובת, תומך עברית) ---
+        const encodePersonal = (payload) => {
+            const bytes = new TextEncoder().encode(JSON.stringify(payload));
+            let binary = '';
+            bytes.forEach(b => { binary += String.fromCharCode(b); });
+            return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        };
+
+        const decodePersonal = (token) => {
+            try {
+                let b64 = token.replace(/-/g, '+').replace(/_/g, '/');
+                while (b64.length % 4) b64 += '=';
+                const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+                const data = JSON.parse(new TextDecoder().decode(bytes));
+                return (data && data.n && Array.isArray(data.items)) ? data : null;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        const formatHebrewDate = () => new Date().toLocaleDateString('he-IL', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
 
         // --- אייקונים (SVG) ---
         const Icons = {
@@ -638,6 +869,17 @@ const INITIAL_TRIPS = [
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">ניהול טיולים</h2>
                 <p className="text-gray-500">ניהול רשימת הטיולים, תאריכי יציאה וקישורי הרשמה.</p>
               </button>
+
+              <button
+                onClick={() => onChangeView('admin-personal')}
+                className="bg-white p-8 rounded-xl shadow-md border-2 border-transparent hover:border-slate-500 transition-all group text-right md:col-span-2"
+              >
+                <div className="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 text-slate-600"><Icons.Download /></div>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">דף "שנת הפעילות האישית"</h2>
+                <p className="text-gray-500">הפקת דף אישי למשתתף - להדפסה, לשמירה כ-PDF לצירוף למייל אישור ההרשמה, או כקישור אישי.</p>
+              </button>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
@@ -679,7 +921,10 @@ const INITIAL_TRIPS = [
               date: '', 
               image: '',
               link: '',
-              month: ''
+              month: '',
+              lecturer: '',
+              room: '',
+              category: 'lecture'
             });
           };
 
@@ -708,6 +953,53 @@ const INITIAL_TRIPS = [
                       onChange={e => setFormData({...formData, title: e.target.value})}
                     />
                   </div>
+
+                  {isCourse && (
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
+                      <p className="text-sm text-gray-600">
+                        שדות אלה מופיעים בדף "שנת הפעילות האישית" של המשתתף. מומלץ למלא אותם.
+                      </p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">שם המרצה</label>
+                          <input
+                            type="text"
+                            placeholder="לדוגמה: דינה לוי"
+                            className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                            value={formData.lecturer || ''}
+                            onChange={e => setFormData({...formData, lecturer: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">כיתה / מיקום</label>
+                          <input
+                            type="text"
+                            placeholder="לדוגמה: כיתה א', אולם"
+                            className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500"
+                            value={formData.room || ''}
+                            onChange={e => setFormData({...formData, room: e.target.value})}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">אופי הפעילות</label>
+                        <select
+                          className="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 bg-white"
+                          value={formData.category || 'lecture'}
+                          onChange={e => setFormData({...formData, category: e.target.value})}
+                        >
+                          <option value="lecture">הרצאה / קורס עיוני</option>
+                          <option value="workshop">סדנה / קורס מעשי</option>
+                          <option value="movement">פעילות גופנית / תנועה</option>
+                        </select>
+                        <p className="text-xs text-gray-500 mt-1">
+                          קובע איזה משפט השראה יופיע בדף האישי (למידה, תנועה, או איזון בין השניים).
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   {!isCourse && (
                     <div>
@@ -894,8 +1186,318 @@ const INITIAL_TRIPS = [
           );
         };
 
+        // --- בניית שורות המערכת מתוך הנתונים האישיים ---
+        const buildPersonalRows = (data, courses) => (
+          (data.items || [])
+            .map(entry => {
+              const course = courses.find(c => String(c.id) === String(entry.i));
+              if (!course) return null;
+              const parsed = parseSchedule(course.schedule);
+              return {
+                id: course.id,
+                title: course.title,
+                lecturer: course.lecturer || '',
+                room: entry.r || course.room || '',
+                hours: entry.h || parsed.hours,
+                dayLabel: parsed.dayLabel,
+                dayValue: parsed.dayValue,
+                category: course.category || ''
+              };
+            })
+            .filter(Boolean)
+            // מיון לפי יום, ובתוך אותו יום לפי שעה. פעילות בלי שעה מוגדרת תופיע בסוף היום.
+            .sort((a, b) => (a.dayValue - b.dayValue) || (a.hours || 'zz').localeCompare(b.hours || 'zz'))
+        );
+
+        const Blank = () => <span className="pa-blank">—</span>;
+
+        const PersonalSheet = ({ data, courses, onExit }) => {
+          const rows = buildPersonalRows(data, courses);
+          const quote = pickQuote(rows.map(r => r.category), data.n);
+          const isShortList = rows.length > 0 && rows.length <= 2;
+          // מעל 7 פעילויות כרטיס הכיס מאבד את טעמו, והדף גם חורג מעמוד A4 אחד.
+          const showCard = data.card && rows.length > 0 && rows.length <= 7;
+
+          const logo = (src, label) => (
+            src
+              ? <img src={src} alt={label} />
+              : <span className="pa-wordmark">{label}</span>
+          );
+
+          return (
+            <div className="pa-page">
+              <div className="pa-toolbar no-print">
+                <button
+                  onClick={() => window.print()}
+                  className="bg-teal-700 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-teal-800 transition flex items-center gap-2"
+                >
+                  <div className="w-5 h-5"><Icons.Download /></div> הדפסה / שמירה כ-PDF
+                </button>
+                {onExit && (
+                  <button onClick={onExit} className="bg-white border border-gray-300 text-gray-700 px-5 py-3 rounded-lg hover:bg-gray-50 transition">
+                    חזרה
+                  </button>
+                )}
+              </div>
+
+              <div className={rows.length >= 7 ? 'pa-sheet pa-dense' : 'pa-sheet'}>
+                <div className="pa-logos">
+                  {logo(ORG_LOGOS.founders, 'עמותת המייסדים')}
+                  {logo(ORG_LOGOS.betenu, 'קתדרת ביתנו')}
+                </div>
+
+                <div className="pa-head">
+                  <p className="pa-kicker">שנת הפעילות האישית של</p>
+                  <h1 className="pa-name">{data.n}</h1>
+                  <p className="pa-org">בקתדרת "ביתנו"</p>
+                </div>
+
+                {rows.length > 0 ? (
+                  <table className="pa-table">
+                    <caption>מערכת הפעילות שלי</caption>
+                    <thead>
+                      <tr>
+                        <th style={{ width: '18%' }}>יום</th>
+                        <th style={{ width: '15%' }}>שעות</th>
+                        <th style={{ width: '33%' }}>הפעילות</th>
+                        <th style={{ width: '18%' }}>מרצה</th>
+                        <th style={{ width: '16%' }}>מיקום</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rows.map(row => (
+                        <tr key={row.id}>
+                          <td>{row.dayLabel || <Blank />}</td>
+                          <td className="pa-time" dir="ltr" style={{ textAlign: 'right' }}>
+                            {row.hours || <Blank />}
+                          </td>
+                          <td className="pa-activity">{row.title}</td>
+                          <td>{row.lecturer || <Blank />}</td>
+                          <td>{row.room || <Blank />}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p className="pa-blank">לא נבחרו פעילויות.</p>
+                )}
+
+                <p className="pa-message">
+                  מאחלים לך שנת פעילות מהנה, בריאה, מלאה בלמידה, בתנועה ובמפגשים טובים.
+                  {isShortList && ' יש עוד הרבה מה לגלות בביתנו, וניתן להצטרף לפעילויות נוספות במהלך השנה, בהתאם למקומות הפנויים.'}
+                </p>
+
+                {quote && <p className="pa-quote">{quote}</p>}
+
+                {data.notes && (
+                  <div className="pa-notes">
+                    <h2>מקום לרשום לעצמי</h2>
+                    <div className="pa-line"></div>
+                    <div className="pa-line"></div>
+                    <div className="pa-line"></div>
+                  </div>
+                )}
+
+                <div className="pa-foot">
+                  <span>
+                    {(ORG_CONTACT.phone || ORG_CONTACT.email)
+                      ? <span>יש שאלה? נשמח לעזור{ORG_CONTACT.phone ? ' · ' + ORG_CONTACT.phone : ''}{ORG_CONTACT.email ? ' · ' + ORG_CONTACT.email : ''}</span>
+                      : <span>קתדרת "ביתנו" · עמותת המייסדים</span>}
+                  </span>
+                  <span>הופק בתאריך {formatHebrewDate()}</span>
+                </div>
+
+                {showCard && (
+                  <div className="pa-card">
+                    <h2>לגזירה ולשמירה - המערכת שלי בקצרה</h2>
+                    <ul>
+                      {rows.map(row => (
+                        <li key={row.id}>
+                          <strong>{row.dayLabel || '—'}</strong>
+                          <span className="pa-sep">|</span>
+                          <span className="pa-time" dir="ltr">{row.hours || '—'}</span>
+                          <span className="pa-sep">|</span>
+                          {row.title}
+                          {row.room && <span><span className="pa-sep">|</span>{row.room}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        };
+
+        const PersonalGenerator = ({ courses, onPreview, onBack }) => {
+          const [name, setName] = React.useState('');
+          const [selected, setSelected] = React.useState({});
+          const [withCard, setWithCard] = React.useState(true);
+          const [withNotes, setWithNotes] = React.useState(true);
+          const [copied, setCopied] = React.useState(false);
+
+          const activeCourses = courses.filter(c => c.active);
+          const chosenIds = Object.keys(selected);
+          const isReady = name.trim().length > 0 && chosenIds.length > 0;
+
+          const toggle = (course) => {
+            setSelected(prev => {
+              const next = { ...prev };
+              if (next[course.id]) {
+                delete next[course.id];
+              } else {
+                next[course.id] = { h: '', r: '' };
+              }
+              return next;
+            });
+            setCopied(false);
+          };
+
+          const setOverride = (id, field, value) => {
+            setSelected(prev => ({ ...prev, [id]: { ...prev[id], [field]: value } }));
+            setCopied(false);
+          };
+
+          const buildData = () => ({
+            n: name.trim(),
+            items: chosenIds.map(id => ({ i: id, h: (selected[id].h || '').trim(), r: (selected[id].r || '').trim() })),
+            card: withCard,
+            notes: withNotes
+          });
+
+          const handleCopyLink = () => {
+            const base = window.location.href.split('#')[0];
+            const link = base + '#p=' + encodePersonal(buildData());
+            navigator.clipboard.writeText(link).then(
+              () => setCopied(true),
+              () => window.prompt('העתיקו את הקישור האישי:', link)
+            );
+          };
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8">
+              <div className="mb-8">
+                <button onClick={onBack} className="text-gray-500 hover:text-gray-800 mb-2 text-sm flex items-center gap-1">
+                  → חזרה לתפריט ראשי
+                </button>
+                <h2 className="text-3xl font-bold text-gray-800">הפקת דף "שנת הפעילות האישית"</h2>
+                <p className="text-gray-600 mt-2">
+                  הקלידו את שם המשתתף, סמנו את הפעילויות שבחר, וקבלו דף מוכן להדפסה או לצירוף למייל אישור ההרשמה.
+                </p>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
+                <label className="block font-medium text-gray-700 mb-2">שם מלא של המשתתף</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={e => { setName(e.target.value); setCopied(false); }}
+                  placeholder="לדוגמה: רחל כהן"
+                  className="w-full p-3 border rounded-lg text-xl focus:ring-2 focus:ring-teal-500 outline-none"
+                  autoFocus
+                />
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
+                <h3 className="font-bold text-gray-800 mb-1">הפעילויות שהמשתתף בחר</h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  אחרי סימון פעילות ניתן להשלים שעות ומיקום ידנית - שימושי בקורס שיש לו כמה מועדים.
+                </p>
+
+                <div className="space-y-2">
+                  {activeCourses.map(course => {
+                    const entry = selected[course.id];
+                    const parsed = parseSchedule(course.schedule);
+                    return (
+                      <div key={course.id} className={`rounded-lg border transition ${entry ? 'border-teal-400 bg-teal-50' : 'border-gray-200'}`}>
+                        <label className="flex items-start gap-3 p-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="w-5 h-5 mt-1 shrink-0 text-teal-600 rounded"
+                            checked={!!entry}
+                            onChange={() => toggle(course)}
+                          />
+                          <span>
+                            <span className="font-bold text-gray-800">{course.title}</span>
+                            <span className="block text-sm text-gray-600">
+                              {parsed.dayLabel || 'ללא יום'}
+                              {parsed.hours ? ' · ' + parsed.hours : ''}
+                              {course.lecturer ? ' · ' + course.lecturer : ''}
+                            </span>
+                          </span>
+                        </label>
+
+                        {entry && (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-3 pb-3 pt-0 border-t border-teal-200">
+                            <div>
+                              <label className="block text-xs text-gray-600 mb-1 mt-2">שעות (השארה ריקה = לפי הקורס)</label>
+                              <input
+                                type="text"
+                                value={entry.h}
+                                onChange={e => setOverride(course.id, 'h', e.target.value)}
+                                placeholder={parsed.hours || 'לדוגמה: 10:30–11:45'}
+                                className="w-full p-2 border rounded"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs text-gray-600 mb-1 mt-2">כיתה / מיקום</label>
+                              <input
+                                type="text"
+                                value={entry.r}
+                                onChange={e => setOverride(course.id, 'r', e.target.value)}
+                                placeholder={course.room || 'לדוגמה: כיתה א'}
+                                className="w-full p-2 border rounded"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
+                <h3 className="font-bold text-gray-800 mb-3">מה להוסיף לדף</h3>
+                <label className="flex items-center gap-2 mb-2 cursor-pointer">
+                  <input type="checkbox" className="w-5 h-5 text-teal-600 rounded" checked={withCard} onChange={e => setWithCard(e.target.checked)} />
+                  <span className="text-gray-700">כרטיס כיס לגזירה (המערכת בקצרה, לארנק)</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" className="w-5 h-5 text-teal-600 rounded" checked={withNotes} onChange={e => setWithNotes(e.target.checked)} />
+                  <span className="text-gray-700">אזור "מקום לרשום לעצמי" (שורות ריקות)</span>
+                </label>
+                <p className="text-xs text-gray-500 mt-3">
+                  הדף מתכווץ אוטומטית במערכת עמוסה, כדי להישאר על עמוד A4 אחד.
+                  מעל 7 פעילויות כרטיס הכיס אינו נדפס, כי הוא כבר לא באמת נכנס לארנק.
+                </p>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-3">
+                <button
+                  disabled={!isReady}
+                  onClick={() => onPreview(buildData())}
+                  className="flex-1 bg-teal-600 text-white font-bold text-lg py-4 rounded-lg hover:bg-teal-700 transition disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  צפייה בדף והדפסה
+                </button>
+                <button
+                  disabled={!isReady}
+                  onClick={handleCopyLink}
+                  className="flex-1 bg-white border-2 border-teal-600 text-teal-700 font-bold text-lg py-4 rounded-lg hover:bg-teal-50 transition disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed"
+                >
+                  {copied ? 'הקישור האישי הועתק ✓' : 'העתקת קישור אישי לשליחה'}
+                </button>
+              </div>
+              {!isReady && (
+                <p className="text-sm text-gray-500 mt-3 text-center">כדי להמשיך יש להזין שם ולסמן לפחות פעילות אחת.</p>
+              )}
+            </div>
+          );
+        };
+
         const App = () => {
-          
+
           const [courses, setCourses] = React.useState(() => {
             const saved = safeStorage.getItem('mySite_courses');
             return saved ? JSON.parse(saved) : sortCoursesByDay(INITIAL_COURSES);
@@ -907,8 +1509,25 @@ const INITIAL_TRIPS = [
             return saved ? JSON.parse(saved) : sortTrips(INITIAL_TRIPS);
           });
 
-          const [view, setView] = React.useState('home'); 
+          const [view, setView] = React.useState('home');
           const [isAdminMode, setIsAdminMode] = React.useState(false);
+          const [personalData, setPersonalData] = React.useState(null);
+
+          // --- פתיחת דף אישי מתוך קישור: index.html#p=... ---
+          React.useEffect(() => {
+            const readHash = () => {
+              const hash = window.location.hash || '';
+              if (hash.indexOf('#p=') !== 0) return;
+              const data = decodePersonal(hash.slice(3));
+              if (data) {
+                setPersonalData(data);
+                setView('personal');
+              }
+            };
+            readHash();
+            window.addEventListener('hashchange', readHash);
+            return () => window.removeEventListener('hashchange', readHash);
+          }, []);
 
           // לוגיקת עדכון גרסה - הפתרון לבעיית הקאש
           React.useEffect(() => {
@@ -973,6 +1592,14 @@ const INITIAL_TRIPS = [
             }
           };
 
+          const exitPersonal = () => {
+            if (window.location.hash) {
+              window.history.replaceState(null, '', window.location.href.split('#')[0]);
+            }
+            setPersonalData(null);
+            setView(isAdminMode ? 'admin-personal' : 'home');
+          };
+
           const handleAdminLogin = () => {
             setIsAdminMode(true);
             setView('admin');
@@ -1004,14 +1631,16 @@ const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
 
           return (
             <div className="min-h-screen bg-gray-50 text-gray-900 font-sans" dir="rtl">
-              <Navbar 
-                onViewChange={setView} 
-                isAdminMode={isAdminMode} 
-                setIsAdminMode={(val) => {
-                  setIsAdminMode(val);
-                  setView('home');
-                }}
-              />
+              {view !== 'personal' && (
+                <Navbar
+                  onViewChange={setView}
+                  isAdminMode={isAdminMode}
+                  setIsAdminMode={(val) => {
+                    setIsAdminMode(val);
+                    setView('home');
+                  }}
+                />
+              )}
 
               <main>
                 {view === 'home' && (
@@ -1038,20 +1667,38 @@ const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
                 )}
                 
                 {view === 'admin-trips' && isAdminMode && (
-                  <ItemEditor 
-                    type="trip" 
-                    items={trips} 
-                    onSave={handleSaveTrip} 
-                    onDelete={handleDeleteTrip} 
+                  <ItemEditor
+                    type="trip"
+                    items={trips}
+                    onSave={handleSaveTrip}
+                    onDelete={handleDeleteTrip}
                     onBack={() => setView('admin')}
+                  />
+                )}
+
+                {view === 'admin-personal' && isAdminMode && (
+                  <PersonalGenerator
+                    courses={courses}
+                    onPreview={(data) => { setPersonalData(data); setView('personal'); }}
+                    onBack={() => setView('admin')}
+                  />
+                )}
+
+                {view === 'personal' && personalData && (
+                  <PersonalSheet
+                    data={personalData}
+                    courses={courses}
+                    onExit={exitPersonal}
                   />
                 )}
               </main>
 
-              <footer className="bg-gray-800 text-gray-400 py-8 text-center mt-12 flex flex-col items-center gap-2">
-                <p>© כל הזכויות שמורות - מערכת רישום ומידע</p>
-                <p className="text-xs opacity-50">גרסת מערכת: {SITE_VERSION}</p>
-              </footer>
+              {view !== 'personal' && (
+                <footer className="bg-gray-800 text-gray-400 py-8 text-center mt-12 flex flex-col items-center gap-2">
+                  <p>© כל הזכויות שמורות - מערכת רישום ומידע</p>
+                  <p className="text-xs opacity-50">גרסת מערכת: {SITE_VERSION}</p>
+                </footer>
+              )}
             </div>
           );
         };
