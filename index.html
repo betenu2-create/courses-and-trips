@@ -529,6 +529,15 @@ const INITIAL_TRIPS = [
             return days.slice(0, -1).join(', ') + ' ו' + days[days.length - 1];
         };
 
+        // מאחד כל טווח שעות לצורה אחת (08:45–10:00), כדי שהתצוגה והמיון יהיו עקביים
+        // גם כשהשעות הוקלדו ידנית. טקסט שאינו טווח שעות מוחזר כמות שהוא.
+        const normalizeHours = (value) => {
+            const raw = (value || '').trim();
+            if (!raw) return '';
+            const match = raw.match(/(\d{1,2}:\d{2})\s*[-–—]\s*(\d{1,2}:\d{2})/);
+            return match ? padTime(match[1]) + '–' + padTime(match[2]) : raw;
+        };
+
         const parseSchedule = (schedule) => {
             const raw = (schedule || '').trim();
             const days = DAY_NAMES.filter(d => raw.includes(d));
@@ -576,7 +585,24 @@ const INITIAL_TRIPS = [
                 while (b64.length % 4) b64 += '=';
                 const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
                 const data = JSON.parse(new TextDecoder().decode(bytes));
-                return (data && data.n && Array.isArray(data.items)) ? data : null;
+                if (!data || typeof data.n !== 'string' || !data.n.trim() || !Array.isArray(data.items)) {
+                    return null;
+                }
+                // מנקים כל רשומה שאינה בצורה הצפויה, כדי שקישור פגום לא יפיל את הדף
+                const items = data.items
+                    .filter(it => it && typeof it === 'object' && !Array.isArray(it))
+                    .map(it => ({
+                        t: typeof it.t === 'string' ? it.t : '',
+                        d: typeof it.d === 'string' ? it.d : '',
+                        h: typeof it.h === 'string' ? it.h : '',
+                        l: typeof it.l === 'string' ? it.l : '',
+                        r: typeof it.r === 'string' ? it.r : '',
+                        g: typeof it.g === 'string' ? it.g : '',
+                        v: typeof it.v === 'number' ? it.v : 99
+                    }))
+                    .filter(it => it.t);
+
+                return { n: data.n.trim(), items: items, card: !!data.card, notes: !!data.notes };
             } catch (e) {
                 return null;
             }
@@ -912,19 +938,20 @@ const INITIAL_TRIPS = [
 
           const startEdit = (item) => {
             setEditingId(item ? item.id : 'new');
-            setFormData(item || { 
-              active: true, 
-              title: '', 
-              description: '', 
-              price: '', 
-              schedule: '', 
-              date: '', 
+            // קורס ותיק שנוצר לפני הוספת השדות האלה מגיע בלעדיהם. בלי ברירות המחדל
+            // האלה התיבה הייתה מציגה "הרצאה" אך לא שומרת אותה אלא אם נגעו בה.
+            const courseDefaults = isCourse ? { lecturer: '', room: '', category: 'lecture' } : {};
+            setFormData(item ? { ...courseDefaults, ...item } : {
+              active: true,
+              title: '',
+              description: '',
+              price: '',
+              schedule: '',
+              date: '',
               image: '',
               link: '',
               month: '',
-              lecturer: '',
-              room: '',
-              category: 'lecture'
+              ...courseDefaults
             });
           };
 
@@ -1186,33 +1213,45 @@ const INITIAL_TRIPS = [
           );
         };
 
+        // --- צילום מצב של פעילות אחת, לשמירה בתוך הקישור האישי ---
+        // הדף האישי הוא תיעוד של מה שהמשתתף נרשם אליו, ולכן הוא נושא את הפרטים
+        // בתוך עצמו. כך עריכה או מחיקה של קורס בהמשך השנה לא משנה ולא מוחקת
+        // שורות בדף שכבר נשלח, והדפסה חוזרת תיתן בדיוק את אותו הדף.
+        const snapshotCourse = (course, overrides) => {
+          const parsed = parseSchedule(course.schedule);
+          const extra = overrides || {};
+          return {
+            t: course.title || '',
+            d: parsed.dayLabel,
+            h: normalizeHours(extra.h) || parsed.hours,
+            l: course.lecturer || '',
+            r: (extra.r || '').trim() || course.room || '',
+            g: course.category || '',
+            v: parsed.dayValue
+          };
+        };
+
         // --- בניית שורות המערכת מתוך הנתונים האישיים ---
-        const buildPersonalRows = (data, courses) => (
+        const buildPersonalRows = (data) => (
           (data.items || [])
-            .map(entry => {
-              const course = courses.find(c => String(c.id) === String(entry.i));
-              if (!course) return null;
-              const parsed = parseSchedule(course.schedule);
-              return {
-                id: course.id,
-                title: course.title,
-                lecturer: course.lecturer || '',
-                room: entry.r || course.room || '',
-                hours: entry.h || parsed.hours,
-                dayLabel: parsed.dayLabel,
-                dayValue: parsed.dayValue,
-                category: course.category || ''
-              };
-            })
-            .filter(Boolean)
+            .map((entry, index) => ({
+              key: index,
+              title: entry.t,
+              dayLabel: entry.d,
+              hours: normalizeHours(entry.h),
+              lecturer: entry.l,
+              room: entry.r,
+              category: entry.g,
+              dayValue: typeof entry.v === 'number' ? entry.v : 99
+            }))
             // מיון לפי יום, ובתוך אותו יום לפי שעה. פעילות בלי שעה מוגדרת תופיע בסוף היום.
             .sort((a, b) => (a.dayValue - b.dayValue) || (a.hours || 'zz').localeCompare(b.hours || 'zz'))
         );
 
         const Blank = () => <span className="pa-blank">—</span>;
 
-        const PersonalSheet = ({ data, courses, onExit }) => {
-          const rows = buildPersonalRows(data, courses);
+        const PersonalSheet = ({ data, onExit }) => {
+          const rows = buildPersonalRows(data);
           const quote = pickQuote(rows.map(r => r.category), data.n);
           const isShortList = rows.length > 0 && rows.length <= 2;
           // מעל 7 פעילויות כרטיס הכיס מאבד את טעמו, והדף גם חורג מעמוד A4 אחד.
@@ -1266,7 +1305,7 @@ const INITIAL_TRIPS = [
                     </thead>
                     <tbody>
                       {rows.map(row => (
-                        <tr key={row.id}>
+                        <tr key={row.key}>
                           <td>{row.dayLabel || <Blank />}</td>
                           <td className="pa-time" dir="ltr" style={{ textAlign: 'right' }}>
                             {row.hours || <Blank />}
@@ -1312,7 +1351,7 @@ const INITIAL_TRIPS = [
                     <h2>לגזירה ולשמירה - המערכת שלי בקצרה</h2>
                     <ul>
                       {rows.map(row => (
-                        <li key={row.id}>
+                        <li key={row.key}>
                           <strong>{row.dayLabel || '—'}</strong>
                           <span className="pa-sep">|</span>
                           <span className="pa-time" dir="ltr">{row.hours || '—'}</span>
@@ -1329,12 +1368,27 @@ const INITIAL_TRIPS = [
           );
         };
 
-        const PersonalGenerator = ({ courses, onPreview, onBack }) => {
-          const [name, setName] = React.useState('');
-          const [selected, setSelected] = React.useState({});
-          const [withCard, setWithCard] = React.useState(true);
-          const [withNotes, setWithNotes] = React.useState(true);
+        const EMPTY_GENERATOR_FORM = { name: '', selected: {}, withCard: true, withNotes: true };
+
+        // הטופס מוחזק ב-App ולא כאן, כדי שהמעבר לתצוגת הדף וחזרה לא ימחק
+        // את השם, הסימונים וההשלמות הידניות.
+        const PersonalGenerator = ({ courses, form, onFormChange, onReset, onPreview, onBack }) => {
           const [copied, setCopied] = React.useState(false);
+
+          const name = form.name;
+          const selected = form.selected;
+          const withCard = form.withCard;
+          const withNotes = form.withNotes;
+
+          const update = (patch) => {
+            onFormChange({ ...form, ...patch });
+            setCopied(false);
+          };
+
+          const setName = (value) => update({ name: value });
+          const setSelected = (updater) => update({ selected: updater(form.selected) });
+          const setWithCard = (value) => update({ withCard: value });
+          const setWithNotes = (value) => update({ withNotes: value });
 
           const activeCourses = courses.filter(c => c.active);
           const chosenIds = Object.keys(selected);
@@ -1360,7 +1414,12 @@ const INITIAL_TRIPS = [
 
           const buildData = () => ({
             n: name.trim(),
-            items: chosenIds.map(id => ({ i: id, h: (selected[id].h || '').trim(), r: (selected[id].r || '').trim() })),
+            items: chosenIds
+              .map(id => {
+                const course = activeCourses.find(c => String(c.id) === String(id));
+                return course ? snapshotCourse(course, selected[id]) : null;
+              })
+              .filter(Boolean),
             card: withCard,
             notes: withNotes
           });
@@ -1387,7 +1446,16 @@ const INITIAL_TRIPS = [
               </div>
 
               <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 mb-6">
-                <label className="block font-medium text-gray-700 mb-2">שם מלא של המשתתף</label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block font-medium text-gray-700">שם מלא של המשתתף</label>
+                  <button
+                    type="button"
+                    onClick={() => { onReset(); setCopied(false); }}
+                    className="text-sm text-gray-500 hover:text-gray-800 underline"
+                  >
+                    ניקוי הטופס להפקת דף חדש
+                  </button>
+                </div>
                 <input
                   type="text"
                   value={name}
@@ -1512,6 +1580,7 @@ const INITIAL_TRIPS = [
           const [view, setView] = React.useState('home');
           const [isAdminMode, setIsAdminMode] = React.useState(false);
           const [personalData, setPersonalData] = React.useState(null);
+          const [generatorForm, setGeneratorForm] = React.useState(EMPTY_GENERATOR_FORM);
 
           // --- פתיחת דף אישי מתוך קישור: index.html#p=... ---
           React.useEffect(() => {
@@ -1679,6 +1748,9 @@ const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
                 {view === 'admin-personal' && isAdminMode && (
                   <PersonalGenerator
                     courses={courses}
+                    form={generatorForm}
+                    onFormChange={setGeneratorForm}
+                    onReset={() => setGeneratorForm(EMPTY_GENERATOR_FORM)}
                     onPreview={(data) => { setPersonalData(data); setView('personal'); }}
                     onBack={() => setView('admin')}
                   />
@@ -1687,7 +1759,6 @@ const INITIAL_TRIPS = ${JSON.stringify(trips, null, 2)};`;
                 {view === 'personal' && personalData && (
                   <PersonalSheet
                     data={personalData}
-                    courses={courses}
                     onExit={exitPersonal}
                   />
                 )}
